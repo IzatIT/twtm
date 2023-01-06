@@ -1,0 +1,338 @@
+#movie{
+    background-size: 100vw;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-position: top;
+}
+.movie_filter{
+
+    background-image: linear-gradient(to right, rgba(31.5, 10.5, 10.5, 1) calc((50vw - 170px) - 340px), rgba(31.5, 10.5, 10.5, 0.84) 30%, rgba(31.5, 10.5, 10.5, 0.84) 100%);
+
+}
+/* ==============================header info================================================ */
+
+.movie_header{
+    padding: 35px 0;
+    display: flex;
+    color: white;
+}
+.movie_poster_path{
+    width: 300px;
+}
+.movie_left_container{
+    margin: 0 50px 0 0;
+}
+.movie_title{
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.movie_rating_container{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    padding: 5px;
+    background: var(--bg);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.movie_realese_date{
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.movie_realese_date p{
+    font-size: 14px;
+
+}
+.movie_genres_item{
+    margin: 0 20px;
+}
+.movie_rating{
+    display: flex;
+    align-items: center;
+}
+.movie_rating_item{
+    display: flex;
+    align-items: center;
+}
+.movie_rating_item p{
+    margin: 0 30px 0 5px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.movie_btn{
+    background: none;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.movie_btn:hover{
+    color: rgb(196, 165, 165);
+}
+.movie_text{
+    margin: 0 0 10px 0;
+}
+.movie_overview{
+    font-size: 15px;
+    font-weight: 300;
+}
+.movie_overview span{
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 0 10px 0;
+}
+
+.movie_tagline{
+    font-size: 18px;
+    margin: 10px 0;
+    font-style: italic;
+    font-weight: 300;
+}
+.movie_genres{
+    display: flex;
+}
+.movie_writers{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.movie_crew{
+    display: flex;
+    margin: 15px 0;
+}
+.movie_crew div{
+    margin: 0 30px 0 0;
+}
+.movie_crew div h4{
+    font-size: 16px;
+    font-weight: 500;
+}
+.movie_crew div p{
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+/* ==============================MOVIE SUB LEFT INFO=========================== */
+.movie_starring{
+    display: flex;
+    overflow-x: scroll;
+    width: 70vw;
+}
+.starring_title{
+    margin: 30px 0 20px 0;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+/* ==============================MOVIE SUB RIGHT =========================== */
+
+.movie_body_right{
+    padding: 30px 20px;
+    box-shadow: -100px 0 50px 10px white;
+}
+.extra_info_item{
+    margin: 10px 0;
+}
+.extra_info_item h3{
+    font-size: 13px;
+    font-weight: 600;
+}
+.extra_info_item p{
+    margin: 2px 0 0 0;
+    font-size: 15px;
+    font-weight: 300;
+}
+.movie_body{
+    display: flex;
+}
+.movie_extarnals{
+    display: flex;
+}
+.movie_social{
+    margin: 0 10px;
+    display: block;
+    width: 30px;
+}
+
+.movie_keywords{
+    display: flex;
+    flex-wrap: wrap;
+}
+.keyword_btn{
+    padding: 5px 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(20, 19, 19);
+    margin: 5px ;
+    border-radius: 3px;
+    border: none;
+    background: rgb(236, 234, 234);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: 0 0 1px .2px black;
+}
+/* ==============================MEDIA ADAPTIVE================================================ */
+
+@media screen and (max-width: 1227px) {
+    #movie{
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+        background-origin: border-box;
+        background-position: top;
+    }
+}
+@media screen and (max-width: 980px) {
+    .movie_realese_date{
+        display: flex;
+        margin: 5px 0;
+        align-items: center;
+    }
+    
+    .movie_realese_date p{
+        font-size: 14px;
+    
+    }
+    .movie_genres_item{
+        margin: 0 10px;
+    }
+    .movie_genres_item:first-child{
+        list-style-type: none;
+    }
+    .movie_runtime{
+        margin: 0 0 0 10px;
+    }
+    .movie_realese_date{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .movie_header{
+        flex-direction: column;
+    }
+    #movie{
+        background-size: 100vw;
+        
+    }
+    .movie_poster_path{
+        width: 27.5%;
+    }
+    .movie_filter{
+        background-image: none;
+    }
+    .movie_right_container{
+        padding: 30px;
+        background-image: linear-gradient(to right, rgba(31.5, 10.5, 10.5, 1) calc((50vw - 170px) - 340px), rgba(20, 0, 0, 0.84) 100%, rgba(21, 1, 1, 0.84) 100%);
+        color: white;
+        text-align: center;
+    }
+    .movie_realese_date{
+        flex-direction: flex;
+        align-items: center;
+    }
+    .movie_rating{
+        justify-content: center;
+    }
+    .movie_writers{
+        align-items: center;
+    }
+    .keyword_btn{
+        font-size: 10px;
+        padding: 3px 5px;
+    }
+    .movie_social{
+        width: 25px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .movie_social{
+        width: 20px;
+        margin: 5px;
+    }
+
+}
+@media screen and (max-width: 550px) {
+    #movie{
+        background-size:cover;
+        background-position: 70%;
+    }
+    .movie_poster_path{
+        width: 40%;
+    }
+    .movie_body{
+        flex-direction: column;
+    }
+    .movie_body_left{
+        width: 100%;
+    }
+    .movie_starring{
+        width: 100%;
+    }
+
+}
+@media screen and (max-width: 470px) {
+    .movie_genres_item{
+        font-size: 13px;
+    }
+    .movie_runtime{
+        font-size: 13px;
+    }
+   .movie_overview{
+    font-size: 12px;
+   }
+   .movie_rating_container{
+    width: 50px;
+    height: 50px;
+   }
+   .movie_rating_item p{
+    font-size: 12px;
+   }
+   .movie_btn{
+    font-size: 11px;
+   }
+   .movie_crew {
+    margin: 10px 0 0;
+   }
+   .movie_crew div{
+        margin: 5px 10px;
+   }
+   .movie_crew div h4{
+    font-size: 14px;
+   }
+   .movie_crew div p{
+    font-size: 12px;
+   }
+
+}
+@media screen and (max-width: 370px) {
+   .movie_rating_container{
+    width: 40px;
+    height: 40px;
+   }
+   .movie_rating{
+    flex-direction: column;
+   }
+   .movie_genres{
+    flex-direction: column;
+    list-style: none;
+   }
+   .movie_genres li,.movie_genres p{
+        margin: 0;
+   }
+   .movie_crew {
+    display: none;
+   }
+}

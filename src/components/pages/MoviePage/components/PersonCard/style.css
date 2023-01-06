@@ -1,0 +1,23 @@
+.personCard{
+    width: 130px;
+    margin: 0 10px;
+}
+.personCard_img{
+    width: 130px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.personCard_charackter{
+    font-size: 13px;
+}
+@media screen and (max-width: 550px) {
+    .personCard{
+        width: 100px;
+    }
+    .personCard_img{
+        width: 100px;
+    }
+}
