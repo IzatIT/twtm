@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/twtm/static/css/main.582c7b78.css",
-    "main.js": "/twtm/static/js/main.d75fd565.js",
+    "main.js": "/twtm/static/js/main.5ca82fb2.js",
     "index.html": "/twtm/index.html",
     "main.582c7b78.css.map": "/twtm/static/css/main.582c7b78.css.map",
-    "main.d75fd565.js.map": "/twtm/static/js/main.d75fd565.js.map"
+    "main.5ca82fb2.js.map": "/twtm/static/js/main.5ca82fb2.js.map"
   },
   "entrypoints": [
     "static/css/main.582c7b78.css",
-    "static/js/main.d75fd565.js"
+    "static/js/main.5ca82fb2.js"
   ]
 }
