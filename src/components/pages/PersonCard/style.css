@@ -1,9 +1,22 @@
 .personCard{
     width: 130px;
     margin: 0 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    box-shadow: 0 0 15px 1px black;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 .personCard_img{
     width: 130px;
+    color: orangered;
+    text-decoration: none;
+    font-size: 20px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -19,5 +32,6 @@
     }
     .personCard_img{
         width: 100px;
+        height: 150px;
     }
 }

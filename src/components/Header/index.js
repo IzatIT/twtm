@@ -25,7 +25,7 @@ function Header() {
             <div className='container'>
                 <div className='header'>
                     <div className='header_left'>
-                        <Link to='/' className='header_logo'>
+                        <Link to='/twtm' className='header_logo'>
                             <h1>TWTM</h1>
                             <div></div>
                         </Link>

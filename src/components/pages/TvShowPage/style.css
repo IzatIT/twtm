@@ -165,25 +165,6 @@
     width: 30px;
 }
 
-.movie_keywords{
-    display: flex;
-    flex-wrap: wrap;
-}
-.keyword_btn{
-    padding: 5px 8px;
-    font-size: 14px;
-    font-weight: 400;
-    color: rgb(20, 19, 19);
-    margin: 5px ;
-    border-radius: 3px;
-    border: none;
-    background: rgb(236, 234, 234);
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    box-shadow: 0 0 1px .2px black;
-}
 /* ==============================MEDIA ADAPTIVE================================================ */
 
 @media screen and (max-width: 1227px) {

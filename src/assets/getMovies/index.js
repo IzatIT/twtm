@@ -10,5 +10,5 @@ export const getMovies = async (category, subCategory, language, page) => {
         return results
     }catch(e){
         console.log(e)
-    }   
+    } 
 }

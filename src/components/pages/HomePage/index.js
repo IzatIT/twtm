@@ -3,7 +3,6 @@ import './style.css'
 import { useSelector } from 'react-redux';
 import SearchInput from '../../../assets/SearchInput';
 import HomeSectionOne from './components/HomeSectionOne';
-import HomeSectionTwo from './components/HomeSectionTwo';
 
 function HomePage() {
     const { language } = useSelector(state => state.language)
@@ -33,8 +32,6 @@ function HomePage() {
                     </div>
                 </div>
             </section>
-            <HomeSectionTwo />
-
         </div>
 
     );

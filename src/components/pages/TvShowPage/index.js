@@ -3,32 +3,31 @@ import './style.css'
 import { getMovies } from '../../../assets/getMovies';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import MovieHeader from './components/Header';
-import MovieBody from './components/MovieBody';
+import TvHeader from './components/Header';
+import TvBody from './components/MovieBody';
 import Loading from '../../../assets/Loading';
-import { getCategories } from '../HomePage/components/HomeSectionOne/components';
 
-function MoviePage() {
+function TvShowPage() {
     const [loading, setLoading] = useState(false)
-    const { movieId } = useParams()
+    const { showId } = useParams()
     const { language } = useSelector(state => state.language)
-    const [movieDetails, setMovieDetails] = useState({})
+    const [tvDetails, setTvDetails] = useState({})
     const [cast, setCast] = useState([])
     const [crew, setCrew] = useState([])
     const [genres, setGenres] = useState([])
 
     const getDetails = async (id) => {
         setLoading(true)
-        await getMovies('movie', id, language)
+        await getMovies('tv', id, language)
             .then(data => {
-                setMovieDetails(data)
+                setTvDetails(data)
                 setGenres(data.genres)
             })
         setLoading(false)
     }
     const getCredits = async (id) => {
         setLoading(true)
-        await getMovies('movie', id + '/credits', language)
+        await getMovies('tv', id + '/credits', language)
             .then(data => {
                 setCrew(data.crew)
                 setCast(data.cast)
@@ -38,8 +37,8 @@ function MoviePage() {
 
 
     useEffect(() => {
-        getDetails(movieId)
-        getCredits(movieId)
+        getDetails(showId)
+        getCredits(showId)
     }, [])
     return (
         <div>
@@ -50,8 +49,8 @@ function MoviePage() {
                     </div>
                     :
                     <div>
-                        <MovieHeader movieDetails={movieDetails} crew={crew} genres={genres} />
-                        <MovieBody cast={cast} movieDetails={movieDetails} movieId={movieId} />
+                        <TvHeader tvDetails={tvDetails} crew={crew} genres={genres} />
+                        <TvBody cast={cast} tvDetails={tvDetails} showId={showId} />
                     </div>
             }
         </div>
@@ -59,4 +58,4 @@ function MoviePage() {
 }
 
 
-export default MoviePage;
+export default TvShowPage;

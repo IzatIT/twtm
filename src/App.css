@@ -16,3 +16,12 @@
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
+.loading_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 180px 0 300px 0;
+}
+.placeholderImage{
+    width: 130px;
+}

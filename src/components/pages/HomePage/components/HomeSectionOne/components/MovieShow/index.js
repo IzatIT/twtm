@@ -2,19 +2,23 @@ import React from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from 'react-router-dom';
+import placeholderImage from '../../../../../../../assets/images/placeholderMovie.png'
 
-function MovieShow({ movie }) {
+function MovieShow({ movie, activeCategory }) {
 
     const rating = Math.floor(Math.round(movie.popularity) / 10)
     return (
         <div className='movieShow_item'>
             <div className='movieShow_img_container'>
-            <Link to={`/movie/${movie.id}`}>
+            <Link to={`/${activeCategory[0].category}/${movie.id}`}>
                 <img
                     className="poster_img"
-                    src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`}
-                    srcSet={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}, https://www.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
-                    alt="" />
+                    loading='lazy'
+                    width={150}
+                    height={225}
+                    src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}` || placeholderImage}
+                    srcSet={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}, https://www.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}` || placeholderImage}
+                    alt='Image not available' />
 
             </Link>
             <div className='movieShow_progressbar_container'>

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Facebook from '../../../../../assets/Icons/Facebook';
 import Instagram from '../../../../../assets/Icons/Instagram';
 import Twitter from '../../../../../assets/Icons/Twitter';
-import PersonCard from '../PersonCard';
+import PersonCard from '../../../PersonCard';
 import { getMovies } from '../../../../../assets/getMovies';
 
 function MovieBody({ cast,movieDetails, movieId }) {
