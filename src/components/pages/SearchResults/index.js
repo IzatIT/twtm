@@ -120,7 +120,7 @@ function SearchResults() {
                         <div className='found_movies_gen'>
                             <header className='found_movies_header'>
                                 <input
-                                    onClick={handleClickNavigate}
+                                    // onClick={handleClickNavigate}
                                     className='found_movies_input'
                                     onChange={handleChange}
                                     type="text" value={inputValue} />
