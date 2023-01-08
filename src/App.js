@@ -7,9 +7,15 @@ import HomePage from './components/pages/HomePage';
 import MoviePage from './components/pages/MoviePage';
 import { useDispatch, useSelector } from 'react-redux';
 import TvShowPage from './components/pages/TvShowPage';
+import ErrorPage from './components/pages/ErrorPage';
+import PersonPage from './components/pages/PersonPage';
+import SearchResults from './components/pages/SearchResults';
+import { useNavigate } from 'react-router-dom';
+
 function App() {
   const dispatch = useDispatch()
   const { showed } = useSelector(state => state.submenu)
+
   const handleClick = (element) => {
     if (showed !== -1) {
       if (element.target.className !== 'menu_title') {
@@ -26,9 +32,10 @@ function App() {
       <Header />
       <Routes>
         <Route path='/twtm' element={<HomePage />} />
-        <Route path='/movie/:movieId' element={<MoviePage/>} />
-        <Route path='/movie/:actorId' />
-        <Route path='/tv/:showId' element={<TvShowPage/>} />
+        <Route path='/movie/:movieId' element={<MoviePage />} />
+        <Route path='/actor/:actorId' element={<PersonPage />} />
+        <Route path='/tv/:showId' element={<TvShowPage />} />
+        <Route path='/search/:searchValue' element={<SearchResults />} />
       </Routes>
       <Footer />
     </div>

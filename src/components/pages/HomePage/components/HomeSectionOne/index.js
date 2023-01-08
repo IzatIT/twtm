@@ -44,7 +44,7 @@ function HomeSectionOne({ section }) {
     
     const getDatas = async () => {
         setLoading(true)
-        await getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=2' )
+        await getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=3' )
             .then(data => setMovieList(data))
             
         setLoading(false)

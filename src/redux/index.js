@@ -6,6 +6,7 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import { ActiveOneReducer } from "./store/ActiveOneReducer"
 import { ActiveTwoReducer } from "./store/ActiveTwoReducer"
 import { ActiveThreeReducer } from "./store/ActiveThreeReducer"
+import { inputReducer } from "./store/InputReducer"
 
 const rootReducer = combineReducers({
     mode: ModeReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     submenu: SubmenuReducer,
     activeOne: ActiveOneReducer,
     activeTwo: ActiveTwoReducer,
-    activeThree: ActiveThreeReducer
+    activeThree: ActiveThreeReducer,
+    inputValue: inputReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools())

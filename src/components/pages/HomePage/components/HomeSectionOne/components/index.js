@@ -26,11 +26,11 @@ export const getCategories = (language, section) => {
                     subcategory: 'upcoming'
                 },
                 {
-                    title: 'Напрокат',
+                    title: 'Фильмы',
                     id: 3,
                     active: false,
                     category: 'movie',
-                    subcategory: 'now_playing'
+                    subcategory: 'popular'
                 },
             ]
         }else if(language === 'en-US'){
@@ -58,11 +58,11 @@ export const getCategories = (language, section) => {
                     subcategory: 'upcoming'
                 },
                 {
-                    title: 'Fof Rent',
+                    title: 'Movies',
                     id: 3,
                     active: false,
                     category: 'movie',
-                    subcategory: 'now_playing'
+                    subcategory: 'popular'
                 },
             ]
         }
@@ -75,7 +75,7 @@ export const getCategories = (language, section) => {
                     id: 0,
                     active: true,
                     category: 'movie',
-                    subcategory: 'now_playing'
+                    subcategory: 'popular'
                 },
                 {
                     title: 'ТВ',
@@ -93,7 +93,7 @@ export const getCategories = (language, section) => {
                     url: '',
                     active: false,
                     category: 'movie',
-                    subcategory: 'now_playing'
+                    subcategory: 'popular'
                 },
                 {
                     title: 'TV',

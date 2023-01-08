@@ -16,7 +16,7 @@ function Header() {
     }
 
 
-    const handleClick = () => {
+     const handleClick = () => {
         dispatch({ type: 'MODECHANGE' })
     }
 
