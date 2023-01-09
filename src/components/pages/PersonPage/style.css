@@ -63,9 +63,8 @@
 .person_biography_item{
     display: flex;
     flex-direction: column;
-    max-height: 311px;
-    overflow: hidden;
 }
+
 .person_biography_item h3{
     margin: 0 0 20px;
     font-weight: 500;

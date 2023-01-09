@@ -23,7 +23,7 @@ function HomePage() {
                                         <h1>{language === 'ru-RU' ? 'Добро пожаловать.' : 'Welcome.'}</h1>
                                         <h2>{language === 'ru-RU' ?
                                             'Миллионы фильмов, сериалов и людей. Исследуйте сейчас.'
-                                            : ' Millions of movies, TV shows and people to discover. Explore now.'}</h2>
+                                            : 'Millions of movies, TV shows and people to discover. Explore now.'}</h2>
                                     </div>
                                     <SearchInput />
                                 </div>

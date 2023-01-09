@@ -22,7 +22,9 @@ function PersonPage() {
         try {
             await getMovies('person', actorId, language)
                 .then(data => setPersonDetails(data))
-        } catch (e) {
+                dispatch({ type: 'ERROR', payload: '' })
+                dispatch({ type: 'ERRORPERSON', payload: '' })
+            } catch (e) {
             dispatch({ type: 'ERRORPERSON', payload: e.message })
         }
         setLoading(false)

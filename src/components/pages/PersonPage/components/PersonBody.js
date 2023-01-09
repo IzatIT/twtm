@@ -14,6 +14,10 @@ function PersonBody({ personDetails }) {
     const [tvCast, setTvCast] = useState([])
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
+    const [hide, setHide] = useState(true)
+
+
+
     const getMovieCredits = async () => {
         setLoading(true)
         try {
@@ -22,6 +26,8 @@ function PersonBody({ personDetails }) {
                     setCast(data.cast)
                     setCrew(data.crew)
                 })
+            dispatch({ type: 'ERROR', payload: '' })
+            dispatch({ type: 'ERRORPERSON', payload: '' })
         }
         catch (e) {
             dispatch({ type: 'ERROR', payload: e.message })
@@ -36,6 +42,8 @@ function PersonBody({ personDetails }) {
                     setTvCast(data.cast)
                     setTvCrew(data.crew)
                 })
+            dispatch({ type: 'ERROR', payload: '' })
+            dispatch({ type: 'ERRORPERSON', payload: '' })
         }
         catch (e) {
             dispatch({ type: 'ERROR', payload: e.message })
@@ -50,109 +58,119 @@ function PersonBody({ personDetails }) {
         getTvCredits()
     }, [])
     try {
-      return (
-        <div className='person_body'>
-            <div className='person_biography'>
-                <h1 className='person_name'>{personDetails.name}</h1>
-                {
-                    personDetails.biography &&
-                    <div className='person_biography_item'>
-                        <h3>{language === 'ru-RU' ? 'Биография' : 'Biography'}</h3>
-                        <p>{personDetails.biography}</p>
-                    </div>
-                }
+        return (
+            <div className='person_body'>
+                <div className='person_biography'>
+                    <h1 className='person_name'>{personDetails.name}</h1>
+                    {
+                        personDetails.biography &&
+                        <div className='person_biography_item'
+                            style={{
+                                maxHeight: hide ? '311px' : 'auto',
+                                overflow: hide ? 'hidden' : 'visible'
+                            }}
+                        >
+                            <h3>{language === 'ru-RU' ? 'Биография' : 'Biography'}</h3>
+                            <p>{personDetails.biography}</p>
+                        </div>
+                    }
 
-                {
-                    personDetails?.biography?.length > 500 &&
-                    <button style={{
-                        boxShadow: mode ? `-50px 0 30px 20px black,
+                    {
+                        personDetails?.biography?.length > 500 &&
+                        <button
+                            onClick={() => setHide(!hide)}
+                            style={{
+                                boxShadow: mode && hide ? `-50px 0 30px 20px black,
                         -100px 0 50px 20px black,
                         -130px 0 80px 20px black,
                         -170px 0 100px 20px black`
-                            : `-50px 0 30px 20px white,
+                                    : !mode && hide ? `-50px 0 30px 20px white,
                         -100px 0 50px 20px white,
                         -130px 0 80px 20px white,
-                        -170px 0 100px 20px white`
-                    }} className='person_biography_btn'>{language === 'ru-RU' ? 'Читать ещё' : 'Read more'} &#62;</button>
+                        -170px 0 100px 20px white` : ''
+                            }} className='person_biography_btn'>{language === 'ru-RU' && hide ? 'Читать ещё' :
+                                language === 'en-US' && hide ? 'Read more' :
+                                    language === 'ru-RU' && !hide ? 'Читать меньше' :
+                                        language === 'en-EN' && !hide ? 'Read less' : ''
+                            } &#62;</button>
+                    }
 
-                }
+                </div>
+                <div className='person_credit_movie_gen'>
+                    <h3 className='person_credits_title'>{language === 'ru-RU' ? 'Известность за' : 'Known for'}</h3>
+                    {
+                        cast[0] &&
+                        <div className='person_movie_credits'>
+                            <h4>{language === 'ru-RU' ? 'Фильмы' : 'Movies'}</h4>
+                            {
+                                loading ? <Loading /> :
+                                    <div className='person_credits_movie'>
+                                        {
+                                            cast.filter((e, idx) => idx < 10).map(el => <MovieShow key={el.id} movie={el} activeCategory={false} />)
+                                        }
+                                        {
+                                            crew.filter((e, idx) => idx < 10).map(el => <MovieShow key={el.id} movie={el} activeCategory={false} />)
+                                        }
+                                    </div>
+                            }
+                        </div>
+                    }
+                </div>
 
-            </div>
-            <div className='person_credit_movie_gen'>
-                <h3 className='person_credits_title'>{language === 'ru-RU' ? 'Известность за' : 'Known for'}</h3>
-                {
-                    cast[0] &&
-                    <div className='person_movie_credits'>
-                        <h4>{language === 'ru-RU' ? 'Фильмы' : 'Movies'}</h4>
+                <div className='person_all_credits'>
+                    <div>
+                        <h3 className='all_credits_title'>Acting</h3>
                         {
-                            loading ? <Loading /> :
-                                <div className='person_credits_movie'>
-                                    {
-                                        cast.filter((e, idx) => idx < 10).map(el => <MovieShow key={el.id} movie={el} activeCategory={false} />)
-                                    }
-                                    {
-                                        crew.filter((e, idx) => idx < 10).map(el => <MovieShow key={el.id} movie={el} activeCategory={false} />)
-                                    }
+                            cast.map(el =>
+                                <div className='list_item' key={el.id}>
+                                    <h1>&#8722;</h1>
+                                    <Link
+                                        style={{ color: 'black', }}
+                                        className='list_item_link' to={`/movie/${el.id}`}>{el.title}</Link>
                                 </div>
+                            )
+                        }
+                        {
+                            crew.map(el =>
+                                <div className='list_item' key={el.id}>
+                                    <h1>&#8722;</h1>
+                                    <Link
+                                        style={{ color: 'black' }}
+                                        className='list_item_link' to={`/movie/${el.id}`}>{el.title}</Link>
+                                </div>
+                            )
                         }
                     </div>
-                }
-            </div>
-
-            <div className='person_all_credits'>
-                <div>
-                    <h3 className='all_credits_title'>Acting</h3>
-                    {
-                        cast.map(el =>
-                            <div className='list_item' key={el.id}>
-                                <h1>&#8722;</h1>
-                                <Link
-                                    style={{ color: 'black', }}
-                                    className='list_item_link' to={`/movie/${el.id}`}>{el.title}</Link>
-                            </div>
-                        )
-                    }
-                    {
-                        crew.map(el =>
-                            <div className='list_item' key={el.id}>
-                                <h1>&#8722;</h1>
-                                <Link
-                                    style={{ color: 'black' }}
-                                    className='list_item_link' to={`/movie/${el.id}`}>{el.title}</Link>
-                            </div>
-                        )
-                    }
+                    <div>
+                        <h3 className='all_credits_title'>TV Programms</h3>
+                        {
+                            tvCast.map(el =>
+                                <div className='list_item' key={el.id}>
+                                    <h1>&#8722;</h1>
+                                    <Link
+                                        style={{ color: 'black', }}
+                                        className='list_item_link' to={`/tv/${el.id}`}>{el.original_name}</Link>
+                                </div>
+                            )
+                        }
+                        {
+                            tvCrew.map(el =>
+                                <div className='list_item' key={el.id}>
+                                    <h1>&#8722;</h1>
+                                    <Link
+                                        style={{ color: 'black' }}
+                                        className='list_item_link' to={`/tv/${el.id}`}>{el.original_name}</Link>
+                                </div>
+                            )
+                        }
+                    </div>
                 </div>
-                <div>
-                    <h3 className='all_credits_title'>TV Programms</h3>
-                    {
-                        tvCast.map(el =>
-                            <div className='list_item' key={el.id}>
-                                <h1>&#8722;</h1>
-                                <Link
-                                    style={{ color: 'black', }}
-                                    className='list_item_link' to={`/tv/${el.id}`}>{el.original_name}</Link>
-                            </div>
-                        )
-                    }
-                    {
-                        tvCrew.map(el =>
-                            <div className='list_item' key={el.id}>
-                                <h1>&#8722;</h1>
-                                <Link
-                                    style={{ color: 'black' }}
-                                    className='list_item_link' to={`/tv/${el.id}`}>{el.original_name}</Link>
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
-        </div >
-    );  
+            </div >
+        );
     } catch (error) {
         dispatch({ type: 'ERRORPERSON', payload: error.message })
     }
-    
+
 }
 
 export default PersonBody;

@@ -16,6 +16,8 @@ function MovieBody({ cast, movieDetails, movieId }) {
         try {
             await getMovies('movie', movieId + '/keywords', language)
                 .then(keywords => setKeywords(keywords.keywords))
+            dispatch({ type: 'ERROR', payload: '' })
+            dispatch({ type: 'ERRORMOVIE', payload: '' })
 
         } catch (e) {
             dispatch({ type: 'ERRORMOVIE', payload: e.message })
@@ -27,6 +29,8 @@ function MovieBody({ cast, movieDetails, movieId }) {
                 .then(data => {
                     setSocialMedia(data)
                 })
+            dispatch({ type: 'ERROR', payload: '' })
+            dispatch({ type: 'ERRORMOVIE', payload: '' })
         } catch (e) {
             dispatch({ type: 'ERRORMOVIE', payload: e.message })
         }

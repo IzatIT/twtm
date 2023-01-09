@@ -39,6 +39,7 @@ function MoviePage() {
                     setCrew(data.crew)
                     setCast(data.cast)
                 })
+                dispatch({ type: 'ERROR', payload: '' })
         } catch (e) {
             dispatch({ type: 'ERRORMOVIE', payload: e.message })
         }
