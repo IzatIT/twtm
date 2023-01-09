@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/twtm/static/css/main.a9d26571.css",
-    "main.js": "/twtm/static/js/main.4a5c7935.js",
+    "main.css": "/twtm/static/css/main.422479d4.css",
+    "main.js": "/twtm/static/js/main.c641bf59.js",
     "static/media/placeholderMovie.png": "/twtm/static/media/placeholderMovie.baba1a7394e8054d69cf.png",
     "static/media/logo.svg": "/twtm/static/media/logo.b1f5c6ebb203312360e3b549249e08ec.svg",
     "index.html": "/twtm/index.html",
-    "main.a9d26571.css.map": "/twtm/static/css/main.a9d26571.css.map",
-    "main.4a5c7935.js.map": "/twtm/static/js/main.4a5c7935.js.map"
+    "main.422479d4.css.map": "/twtm/static/css/main.422479d4.css.map",
+    "main.c641bf59.js.map": "/twtm/static/js/main.c641bf59.js.map"
   },
   "entrypoints": [
-    "static/css/main.a9d26571.css",
-    "static/js/main.4a5c7935.js"
+    "static/css/main.422479d4.css",
+    "static/js/main.c641bf59.js"
   ]
 }
