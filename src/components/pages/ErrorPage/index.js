@@ -7,12 +7,7 @@ function ErrorPage() {
     const { language } = useSelector(state => state.language)
     return (
         <div className='body'>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                color: 'wheat',
-                padding: '20px'
-            }}>
+            <div className='error_text_container'>
                 <h1>{language === 'ru-RU' ? 'К сожалению, cайт недоступен в вашем регионе.' : 'Sorry, site is not available in your region.'}</h1>
             </div>
             <Link to='/twtm'>

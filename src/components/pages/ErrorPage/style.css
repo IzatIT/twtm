@@ -10,7 +10,16 @@ height: 100%;
   background: radial-gradient(at 50% -20%, #908392, #0d060e) fixed;
 }
 
-
+.error_text_container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+.error_text_container h1{
+  font-size: 30px;
+  color: wheat;
+}
 #handboy
 {
    animation: swing ease-in-out 1.3s infinite alternate;
@@ -53,4 +62,22 @@ height: 100%;
 @keyframes swinghair {
     0% { transform: rotate(6deg); }
     100% { transform: rotate(-6deg); }
+}
+
+
+/* =====================ADAPTIVE-=============================== */
+@media screen and (max-width: 800px) {
+  .error_text_container h1{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 530px) {
+  .error_text_container h1{
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .error_text_container h1{
+    font-size: 10px;
+  }
 }
