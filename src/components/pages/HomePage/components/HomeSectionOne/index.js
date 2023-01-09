@@ -8,6 +8,8 @@ import MovieShow from './components/MovieShow';
 import Loading from '../../../../../assets/Loading';
 
 function HomeSectionOne({ section }) {
+    const { error } = useSelector(state => state.error)
+    const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
     const { language } = useSelector(state => state.language)
     const { mode } = useSelector(state => state.mode)
@@ -41,12 +43,20 @@ function HomeSectionOne({ section }) {
             }
         }
     }
-    
+
+
+
+
+
     const getDatas = async () => {
         setLoading(true)
-        await getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=3' )
-            .then(data => setMovieList(data))
-            
+        try {
+            await getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=3')
+                .then(data => setMovieList(data))
+
+        } catch (e) {
+            dispatch({ type: 'ERROR', payload: e.message })
+        }
         setLoading(false)
     }
     const title = setTitle()
@@ -60,7 +70,7 @@ function HomeSectionOne({ section }) {
     return (
         <div>
             {
-                loading ?
+                loading && error !== '' ?
                     <div className='loading_container'>
                         <Loading />
                     </div>
@@ -75,13 +85,23 @@ function HomeSectionOne({ section }) {
                             </h1>
                             <nav className='home_categories'>
                                 {
-                                    categories.map(category => <Categories section={section} key={category.id} category={category} />)
+                                    categories ?
+                                        categories.map(category => <Categories section={section} key={category.id} category={category} />)
+                                        :
+                                        <div className='loading_container'>
+                                            <Loading />
+                                        </div>
                                 }
                             </nav>
                         </header>
                         <div className='categories_movies'>
                             {
-                                movieList.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                movieList ?
+                                    movieList.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                    :
+                                    <div>
+                                        <Loading />
+                                    </div>
                             }
                         </div>
                     </section>

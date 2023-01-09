@@ -3,9 +3,11 @@ import './style.css'
 import { useSelector } from 'react-redux';
 import SearchInput from '../../../assets/SearchInput';
 import HomeSectionOne from './components/HomeSectionOne';
+import ErrorPage from '../ErrorPage';
 
 function HomePage() {
     const { language } = useSelector(state => state.language)
+    const { error } = useSelector(state => state.error)
 
     return (
         <div>
@@ -26,10 +28,13 @@ function HomePage() {
             </section>
             <section id='home'>
                 <div className='container'>
-                    <div className='home_section'>
-                        <HomeSectionOne section="one" />
-                        <HomeSectionOne section="two" />
-                    </div>
+                    {
+                        <div className='home_section'>
+                            <HomeSectionOne section="one" />
+                            <HomeSectionOne section="two" />
+                        </div>
+                    }
+
                 </div>
             </section>
         </div>

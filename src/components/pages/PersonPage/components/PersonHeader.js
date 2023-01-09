@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../../../../assets/getMovies';
 import Facebook from '../../../../assets/Icons/Facebook';
 import Instagram from '../../../../assets/Icons/Instagram';
@@ -9,6 +9,7 @@ function PersonHeader({ personDetails }) {
     const [loading, setLoading] = useState(false)
     const [social, setSocial] = useState({})
     const { language } = useSelector(state => state.language)
+    const dispatch = useDispatch()
 
     const getSocial = async () => {
         setLoading(true)
@@ -16,7 +17,7 @@ function PersonHeader({ personDetails }) {
             await getMovies('person', personDetails.id + '/external_ids', language)
                 .then(data => setSocial(data))
         } catch (e) {
-            console.log(e.message)
+            dispatch({ type: 'ERROR', payload: e.message })
         }
         setLoading(false)
     }

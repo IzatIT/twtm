@@ -1,12 +1,12 @@
-/* @import url('https://fonts.googleapis.com/css?family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Audiowide&display=swap');
 
 
-body{
+.error_body{
   margin: 0px;
   overflow: hidden;
 }
 
-div{
+.error_div{
   position: absolute;
   top: 0%;
   left: 0%;
@@ -24,7 +24,7 @@ div{
   transform: translate(-50%, -50%);
 }
 
-h2{
+.error_h2{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -173,4 +173,4 @@ div{
   100%  {
     filter: hue-rotate(0deg);
   }
-} */
+}

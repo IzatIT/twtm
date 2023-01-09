@@ -28,6 +28,7 @@ function SearchResults() {
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
     const [selected, setSelected] = useState(0)
+    const {error} = useSelector(state => state.error)
 
     const handleChange = (e) => {
         dispatch({ type: 'INPUTCHANGE', payload: e.target.value })
@@ -54,6 +55,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
+            dispatch({type: 'ERROR', payload: e.message})
             console.log(e.message)
         }
         setLoading(false)
@@ -68,6 +70,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
+            dispatch({type: 'ERROR', payload: e.message})
             console.log(e.message)
         }
         setLoading(false)
@@ -82,6 +85,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
+            dispatch({type: 'ERROR', payload: e.message})
             console.log(e.message)
         }
         setLoading(false)
@@ -96,6 +100,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
+            dispatch({type: 'ERROR', payload: e.message})
             console.log(e.message)
         }
         setLoading(false)
@@ -111,7 +116,7 @@ function SearchResults() {
     return (
         <section id="found_movies">
             {
-                loading ?
+                loading && error !== '' ?
                     <div className='loading_container'>
                         <Loading />
                     </div>

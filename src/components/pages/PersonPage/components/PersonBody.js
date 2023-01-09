@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getMovies } from '../../../../assets/getMovies';
 import Loading from '../../../../assets/Loading';
@@ -13,6 +13,7 @@ function PersonBody({ personDetails }) {
     const [tvCrew, setTvCrew] = useState([])
     const [tvCast, setTvCast] = useState([])
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
     const getMovieCredits = async () => {
         setLoading(true)
@@ -24,7 +25,7 @@ function PersonBody({ personDetails }) {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            dispatch({ type: 'ERROR', payload: e.message })
         }
         setLoading(false)
     }
@@ -38,7 +39,7 @@ function PersonBody({ personDetails }) {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            dispatch({ type: 'ERROR', payload: e.message })
         }
         setLoading(false)
     }

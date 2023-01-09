@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 function TvDetails({ tvDetails, genres, crew }) {
     const rating = Math.floor(Math.round(tvDetails.popularity) / 10)
     const { language } = useSelector(state => state.language)
-    console.log(tvDetails)
     return (
         <div>
             <h1 className='movie_title'>{tvDetails.name}</h1>

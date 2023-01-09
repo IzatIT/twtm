@@ -10,9 +10,9 @@ import TvShowPage from './components/pages/TvShowPage';
 import ErrorPage from './components/pages/ErrorPage';
 import PersonPage from './components/pages/PersonPage';
 import SearchResults from './components/pages/SearchResults';
-import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const {error} = useSelector(state => state.error)
   const dispatch = useDispatch()
   const { showed } = useSelector(state => state.submenu)
 
@@ -29,15 +29,21 @@ function App() {
     <div className="App"
       onClick={handleClick}
     >
-      <Header />
-      <Routes>
-        <Route path='/twtm' element={<HomePage />} />
-        <Route path='/movie/:movieId' element={<MoviePage />} />
-        <Route path='/actor/:actorId' element={<PersonPage />} />
-        <Route path='/tv/:showId' element={<TvShowPage />} />
-        <Route path='/search/:searchValue' element={<SearchResults />} />
-      </Routes>
-      <Footer />
+      {
+        
+      }
+      <div>
+        <Header />
+        <Routes>
+          <Route path='/twtm' element={<HomePage />} />
+          <Route path='/movie/:movieId' element={<MoviePage />} />
+          <Route path='/actor/:actorId' element={<PersonPage />} />
+          <Route path='/tv/:showId' element={<TvShowPage />} />
+          <Route path='/search/:searchValue' element={<SearchResults />} />
+        </Routes>
+        <Footer />
+      </div>
+
     </div>
   );
 }

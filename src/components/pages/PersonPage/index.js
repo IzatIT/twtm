@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.css'
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../../../assets/getMovies';
 import Loading from '../../../assets/Loading';
 import PersonBody from './components/PersonBody';
@@ -12,7 +12,8 @@ function PersonPage() {
     const { actorId } = useParams()
     const [loading, setLoading] = useState(false)
     const [personDetails, setPersonDetails] = useState({})
-
+    const dispatch = useDispatch()
+    const {error} = useSelector(state => state.error)
 
     const getCreditInfo = async () => {
         setLoading(true)
@@ -20,7 +21,7 @@ function PersonPage() {
             await getMovies('person', actorId, language)
                 .then(data => setPersonDetails(data))
         } catch (e) {
-            console.log(e)
+            dispatch({ type: 'ERROR', payload: e.message })
         }
         setLoading(false)
     }
@@ -34,7 +35,7 @@ function PersonPage() {
 
                 <div className='container'>
                     {
-                        loading ?
+                        loading && error !== '' ?
                             <div className='loading_container'>
                                 <Loading />
                             </div>
