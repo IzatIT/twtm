@@ -10,25 +10,25 @@ function HomePage() {
     const { error } = useSelector(state => state.error)
 
     return (
-        <>
-            <section id='home' style={{
-                backgroundImage: `url('${bgImage}')`
-            }}>
-                <div className='container'>
-                    <div className='home'>
-                        <div className='home_title'>
-                            <h1>{language === 'ru-RU' ? 'Добро пожаловать.' : 'Welcome.'}</h1>
-                            <h2>{language === 'ru-RU' ?
-                                'Миллионы фильмов, сериалов и людей. Исследуйте сейчас.'
-                                : ' Millions of movies, TV shows and people to discover. Explore now.'}</h2>
-                        </div>
-                        <SearchInput />
-                    </div>
-                </div>
-            </section>
-            <div id='home_gen'>
-                {
-                    error === '' ?
+        <div id='home_gen'>
+            {
+                error === '' ?
+                    <>
+                        <section id='home' style={{
+                            backgroundImage: `url('${bgImage}')`
+                        }}>
+                            <div className='container'>
+                                <div className='home'>
+                                    <div className='home_title'>
+                                        <h1>{language === 'ru-RU' ? 'Добро пожаловать.' : 'Welcome.'}</h1>
+                                        <h2>{language === 'ru-RU' ?
+                                            'Миллионы фильмов, сериалов и людей. Исследуйте сейчас.'
+                                            : ' Millions of movies, TV shows and people to discover. Explore now.'}</h2>
+                                    </div>
+                                    <SearchInput />
+                                </div>
+                            </div>
+                        </section>
                         <section id='home'>
                             <div className='container'>
                                 {
@@ -39,13 +39,14 @@ function HomePage() {
                                 }
                             </div>
                         </section>
-                        :
-                        <div className='error_container'>
-                            <ErrorPage />
-                        </div>
-                }
-            </div>
-        </>
+                    </>
+                    :
+                    <div className='error_container'>
+                        <ErrorPage />
+                    </div>
+            }
+        </div>
+
 
 
     )

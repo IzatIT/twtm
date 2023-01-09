@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import TvShowPage from './components/pages/TvShowPage';
 import PersonPage from './components/pages/PersonPage';
 import SearchResults from './components/pages/SearchResults';
-import ErrorPage from './components/pages/ErrorPage';
 
 function App() {
   const dispatch = useDispatch()

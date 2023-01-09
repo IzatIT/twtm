@@ -1,10 +1,21 @@
 import React from 'react';
 import './style.css'
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function ErrorPage() {
+    const { language } = useSelector(state => state.language)
     return (
         <div className='body'>
-            <a target="_blank" href="https://codepen.io/uiswarup/full/wvjZgar">
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                color: 'wheat',
+                padding: '20px'
+            }}>
+                <h1>{language === 'ru-RU' ? 'К сожалению, cайт недоступен в вашем регионе.' : 'Sorry, site is not available in your region.'}</h1>
+            </div>
+            <Link to='/twtm'>
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 mt-5 mb-5">
@@ -323,7 +334,8 @@ function ErrorPage() {
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
+
         </div>
     );
 }

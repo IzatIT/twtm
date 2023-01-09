@@ -4,9 +4,14 @@ import './style.css'
 
 function PersonCard({ person }) {
 
+    const handleClickScroll = () => {
+        window.scrollTo(0,0)
+      }
     return (
         <div className='personCard'>
-            <Link to={`/actor/${person.id}/`}>
+            <Link
+            onClick={handleClickScroll}
+            to={`/actor/${person.id}/`}>
                 {
                     <img className='personCard_img' loading='lazy' width={130} height={195} src={`https://www.themoviedb.org/t/p/w440_and_h660_face/${person.profile_path}`} alt="Image not available" />
                 }

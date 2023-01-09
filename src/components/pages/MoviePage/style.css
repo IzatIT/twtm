@@ -276,11 +276,9 @@
     .movie_body{
         flex-direction: column;
     }
-    .movie_body_left{
-        width: 100%;
-    }
     .movie_starring{
-        width: 100%;
+        max-width: 85vw;
+        padding: 0 15px;
     }
 
 }

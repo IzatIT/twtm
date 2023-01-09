@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './style.css'
 import { useParams } from 'react-router-dom';
-import { getMovies } from '../../../assets/getMovies';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../../assets/Loading';
 import axios from 'axios';
@@ -29,17 +28,13 @@ function SearchResults() {
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
     const [selected, setSelected] = useState(0)
-    const [error, setError] = useState(false)
+    const {searchError} = useSelector(state => state.error)
+
+    
     const handleChange = (e) => {
         dispatch({ type: 'INPUTCHANGE', payload: e.target.value })
     }
 
-    // const handleClickNavigate = (e) => {
-    //     console.log(e)
-    //     if (inputValue !== '' && false) {
-    //       navigate(`/search/${inputValue}`)
-    //     }
-    //   }
 
     const handleClick = (num) => {
         setSelected(num)
@@ -55,7 +50,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            setError(true)
+            dispatch({type: 'ERRORSEARCH', payload: e.message})
         }
         setLoading(false)
     }
@@ -69,7 +64,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            setError(true)
+            dispatch({type: 'ERRORSEARCH', payload: e.message})
         }
         setLoading(false)
     }
@@ -83,7 +78,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            setError(true)
+            dispatch({type: 'ERRORSEARCH', payload: e.message})
         }
         setLoading(false)
     }
@@ -97,7 +92,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            setError(true)
+            dispatch({type: 'ERRORSEARCH', payload: e.message})
         }
         setLoading(false)
     }
@@ -119,7 +114,7 @@ function SearchResults() {
                     :
                     <div className='container'>
                         {
-                            error ?
+                            searchError ?
                                 <ErrorPage />
                                 :
                                 <div className='found_movies_gen'>

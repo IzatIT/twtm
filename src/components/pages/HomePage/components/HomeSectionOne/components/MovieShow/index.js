@@ -11,7 +11,9 @@ function MovieShow({ movie, activeCategory }) {
 
   const rating = Math.floor(Math.round(movie.popularity) / 10)
 
-
+  const handleClickScroll = () => {
+    window.scrollTo(0,0)
+  }
 
   return (
     <div>
@@ -19,7 +21,9 @@ function MovieShow({ movie, activeCategory }) {
         rating > 1 &&
         <div className='movieShow_item'>
           <div className='movieShow_img_container'>
-            <Link to={`/${category}/${movie.id}`}>
+            <Link
+            onClick={handleClickScroll}
+            to={`/${category}/${movie.id}`}>
               <img
                 className="poster_img"
                 loading='lazy'

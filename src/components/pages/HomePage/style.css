@@ -5,7 +5,7 @@
 
 }
 #home_gen{
-    min-height: 100vh;
+    min-height: 600px;
     position: relative;
 }
 .home{
@@ -85,6 +85,9 @@
     .home_title h2{
         font-size: 25px;
     }
+    #home_gen{
+        min-height: 400px;
+    }
 }
 @media screen and (max-width: 765px){
     .home_title h1{
@@ -98,6 +101,9 @@
     }
     .home_search{
         padding: 20px 0;
+    }
+    #home_gen{
+        min-height: 300px;
     }
 }
 @media screen and (max-width: 615px){
@@ -118,6 +124,8 @@
         width: 100px;
         font-size: 15px;
         padding: 22px 20px;
-
+    }
+    #home_gen{
+        min-height:250px;
     }
 }

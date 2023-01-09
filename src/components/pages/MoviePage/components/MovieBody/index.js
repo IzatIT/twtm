@@ -47,7 +47,7 @@ function MovieBody({ cast, movieDetails, movieId }) {
                             <h1 className='starring_title'>{language === 'ru-RU' ? 'В главных ролях' : 'Starring'}</h1>
                             <div className='movie_starring'>
                                 {
-                                    cast.filter((el, idx) => idx < 20).map(el => <PersonCard key={el.id} person={el} />)
+                                    cast.filter((el, idx) => idx < 50).map(el => <PersonCard key={el.id} person={el} />)
                                 }
                             </div>
                         </div>
