@@ -25,3 +25,8 @@
 .placeholderImage{
     width: 130px;
 }
+
+.error_container{
+    width: 100%;
+    height: 100%;
+}

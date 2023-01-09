@@ -3,14 +3,16 @@ import './style.css'
 import { useSelector } from 'react-redux';
 import SearchInput from '../../../assets/SearchInput';
 import HomeSectionOne from './components/HomeSectionOne';
-
+import bgImage from '../../../assets/images/background.jpg'
+import ErrorPage from '../ErrorPage';
 function HomePage() {
     const { language } = useSelector(state => state.language)
+    const { error } = useSelector(state => state.error)
 
     return (
-        <div>
+        <>
             <section id='home' style={{
-                backgroundImage: `url('https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg')`
+                backgroundImage: `url('${bgImage}')`
             }}>
                 <div className='container'>
                     <div className='home'>
@@ -24,17 +26,29 @@ function HomePage() {
                     </div>
                 </div>
             </section>
-            <section id='home'>
-                <div className='container'>
-                    <div className='home_section'>
-                        <HomeSectionOne section="one" />
-                        <HomeSectionOne section="two" />
-                    </div>
-                </div>
-            </section>
-        </div>
+            <div id='home_gen'>
+                {
+                    error === '' ?
+                        <section id='home'>
+                            <div className='container'>
+                                {
+                                    <div className='home_section'>
+                                        <HomeSectionOne section="one" />
+                                        <HomeSectionOne section="two" />
+                                    </div>
+                                }
+                            </div>
+                        </section>
+                        :
+                        <div className='error_container'>
+                            <ErrorPage />
+                        </div>
+                }
+            </div>
+        </>
 
-    );
+
+    )
 }
 
 export default HomePage;

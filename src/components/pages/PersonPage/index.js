@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './style.css'
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../../../assets/getMovies';
 import Loading from '../../../assets/Loading';
 import PersonBody from './components/PersonBody';
 import PersonHeader from './components/PersonHeader';
+import ErrorPage from '../ErrorPage';
 
 function PersonPage() {
     const { language } = useSelector(state => state.language)
     const { actorId } = useParams()
     const [loading, setLoading] = useState(false)
     const [personDetails, setPersonDetails] = useState({})
+    const { personError } = useSelector(state => state.error)
 
+    const dispatch = useDispatch()
 
     const getCreditInfo = async () => {
         setLoading(true)
@@ -20,7 +23,7 @@ function PersonPage() {
             await getMovies('person', actorId, language)
                 .then(data => setPersonDetails(data))
         } catch (e) {
-            console.log(e)
+            dispatch({ type: 'ERRORPERSON', payload: e.message })
         }
         setLoading(false)
     }
@@ -29,25 +32,40 @@ function PersonPage() {
     useEffect(() => {
         getCreditInfo()
     }, [])
-    return (
-        <div id="personPage">
+    try {
+        return (
 
-                <div className='container'>
-                    {
-                        loading ?
-                            <div className='loading_container'>
-                                <Loading />
-                            </div>
-                            :
-                            <div className='person_page'>
-                                <PersonHeader personDetails={personDetails} />
-                                <PersonBody personDetails={personDetails} />
-                            </div>
-                    }
+            <div id="personPage">
+                {
+                    loading ?
+                        <div className='loading_container'>
+                            <Loading />
+                        </div>
+                        :
+                        <div className='container'>
+                            {
+                                personError === '' ?
+                                    <div className='person_page'>
+                                        <PersonHeader personDetails={personDetails} />
+                                        <PersonBody personDetails={personDetails} />
+                                    </div>
+                                    :
+                                    <div className='error_container'>
+                                        <ErrorPage />
+                                    </div>
 
-                </div>
-        </div>
-    )
+                            }
+
+                        </div>
+
+                }
+
+            </div>
+        )
+    } catch (error) {
+        dispatch({ type: 'ERRORPERSON', payload: error.message })
+    }
+
 }
 
 export default PersonPage;

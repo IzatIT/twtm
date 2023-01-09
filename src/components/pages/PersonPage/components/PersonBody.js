@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getMovies } from '../../../../assets/getMovies';
 import Loading from '../../../../assets/Loading';
@@ -13,7 +13,7 @@ function PersonBody({ personDetails }) {
     const [tvCrew, setTvCrew] = useState([])
     const [tvCast, setTvCast] = useState([])
     const [loading, setLoading] = useState(false)
-
+    const dispatch = useDispatch()
     const getMovieCredits = async () => {
         setLoading(true)
         try {
@@ -24,7 +24,7 @@ function PersonBody({ personDetails }) {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            dispatch({ type: 'ERROR', payload: e.message })
         }
         setLoading(false)
     }
@@ -38,7 +38,7 @@ function PersonBody({ personDetails }) {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            dispatch({ type: 'ERROR', payload: e.message })
         }
         setLoading(false)
     }
@@ -49,8 +49,8 @@ function PersonBody({ personDetails }) {
         getMovieCredits()
         getTvCredits()
     }, [])
-    console.log(tvCast)
-    return (
+    try {
+      return (
         <div className='person_body'>
             <div className='person_biography'>
                 <h1 className='person_name'>{personDetails.name}</h1>
@@ -148,7 +148,11 @@ function PersonBody({ personDetails }) {
                 </div>
             </div>
         </div >
-    );
+    );  
+    } catch (error) {
+        dispatch({ type: 'ERRORPERSON', payload: error.message })
+    }
+    
 }
 
 export default PersonBody;

@@ -11,6 +11,7 @@ import ResultPeople from './components/ResultPeople';
 import ResultKeyword from './components/ResultKeyword';
 import ResultTvShow from './components/ResultTvShow';
 import { useNavigate } from 'react-router-dom';
+import ErrorPage from '../ErrorPage';
 function SearchResults() {
     const navigate = useNavigate()
     const { inputValue } = useSelector(state => state.inputValue)
@@ -28,7 +29,7 @@ function SearchResults() {
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
     const [selected, setSelected] = useState(0)
-
+    const [error, setError] = useState(false)
     const handleChange = (e) => {
         dispatch({ type: 'INPUTCHANGE', payload: e.target.value })
     }
@@ -43,7 +44,7 @@ function SearchResults() {
     const handleClick = (num) => {
         setSelected(num)
     }
- 
+
     const searchMovies = async () => {
         setLoading(true)
         try {
@@ -54,7 +55,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            setError(true)
         }
         setLoading(false)
     }
@@ -68,7 +69,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            setError(true)
         }
         setLoading(false)
     }
@@ -82,7 +83,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            setError(true)
         }
         setLoading(false)
     }
@@ -96,7 +97,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            console.log(e.message)
+            setError(true)
         }
         setLoading(false)
     }
@@ -117,115 +118,120 @@ function SearchResults() {
                     </div>
                     :
                     <div className='container'>
-                        <div className='found_movies_gen'>
-                            <header className='found_movies_header'>
-                                <input
-                                    // onClick={handleClickNavigate}
-                                    className='found_movies_input'
-                                    onChange={handleChange}
-                                    type="text" value={inputValue} />
-                            </header>
-                            <div className='found_movies'>
-                                <div className='found_movies_left'>
-                                    <div className='found_movies_left_container'>
-                                        <div className='found_movies_left_title'>
-                                            <h1>{language === 'ru-RU' ? 'Результаты поиска' : 'Search Results'}</h1>
+                        {
+                            error ?
+                                <ErrorPage />
+                                :
+                                <div className='found_movies_gen'>
+                                    <header className='found_movies_header'>
+                                        <input
+                                            // onClick={handleClickNavigate}
+                                            className='found_movies_input'
+                                            onChange={handleChange}
+                                            type="text" value={inputValue} />
+                                    </header>
+                                    <div className='found_movies'>
+                                        <div className='found_movies_left'>
+                                            <div className='found_movies_left_container'>
+                                                <div className='found_movies_left_title'>
+                                                    <h1>{language === 'ru-RU' ? 'Результаты поиска' : 'Search Results'}</h1>
+                                                </div>
+                                                <nav className='found_movies_nav'>
+                                                    <div
+                                                        style={{
+                                                            background: selected == 0 ? 'rgb(220, 216, 216)' : 'initial'
+                                                        }}
+                                                        className='nav_link'>
+                                                        <button
+                                                            onClick={() => handleClick(0)}
+                                                        >{language === 'ru-RU' ? 'Фильмы' : 'Movies'}</button>
+                                                        <p
+                                                            style={{
+                                                                background: selected == 0 ? 'white' : 'rgb(220, 216, 216)'
+                                                            }}
+                                                            className='found_movies_total'>{movieTotal}</p>
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            background: selected == 1 ? 'rgb(220, 216, 216)' : 'initial'
+                                                        }}
+                                                        className='nav_link'>
+                                                        <button
+                                                            onClick={() => handleClick(1)}
+                                                        >{language === 'ru-RU' ? 'Люди' : 'People'}</button>
+                                                        <p
+                                                            style={{
+                                                                background: selected == 1 ? 'white' : 'rgb(220, 216, 216)'
+                                                            }}
+                                                            className='found_movies_total'>{peopleTotal}</p>
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            background: selected == 2 ? 'rgb(220, 216, 216)' : 'initial'
+                                                        }}
+                                                        className='nav_link'>
+                                                        <button
+                                                            onClick={() => handleClick(2)}
+                                                        >{language == 'ru-RU' ? 'Ключевые слова' : 'Keywords'}</button>
+                                                        <p
+                                                            style={{
+                                                                background: selected == 2 ? 'white' : 'rgb(220, 216, 216)'
+                                                            }}
+                                                            className='found_movies_total'>{keywordsTotal}</p>
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            background: selected == 3 ? 'rgb(220, 216, 216)' : 'initial'
+                                                        }}
+                                                        className='nav_link'>
+                                                        <button
+                                                            onClick={() => handleClick(3)}
+                                                        >{language === 'ru-RU' ? 'ТВ шоу' : 'TV Shows'}</button>
+                                                        <p
+                                                            style={{
+                                                                background: selected == 3 ? 'white' : 'rgb(220, 216, 216)'
+                                                            }}
+                                                            className='found_movies_total'>{tvShowsTotal}</p>
+                                                    </div>
+                                                </nav>
+                                            </div>
                                         </div>
-                                        <nav className='found_movies_nav'>
-                                            <div 
-                                            style={{
-                                                background: selected == 0 ? 'rgb(220, 216, 216)' : 'initial'
-                                            }}
-                                            className='nav_link'>
-                                                <button
-                                                onClick={() => handleClick(0)}
-                                                >{language === 'ru-RU' ? 'Фильмы' : 'Movies'}</button>
-                                                <p
-                                                style={{
-                                                    background: selected == 0 ? 'white' : 'rgb(220, 216, 216)'
-                                                }}
-                                                className='found_movies_total'>{movieTotal}</p>
-                                            </div>
-                                            <div
-                                            style={{
-                                                background: selected == 1 ? 'rgb(220, 216, 216)' : 'initial'
-                                            }}
-                                             className='nav_link'>
-                                                <button
-                                                onClick={() => handleClick(1)}
-                                                >{language === 'ru-RU' ? 'Люди' : 'People'}</button>
-                                                <p
-                                                style={{
-                                                    background: selected == 1 ? 'white' : 'rgb(220, 216, 216)'
-                                                }}
-                                                 className='found_movies_total'>{peopleTotal}</p>
-                                            </div>
-                                            <div
-                                            style={{
-                                                background: selected == 2 ? 'rgb(220, 216, 216)' : 'initial'
-                                            }}
-                                             className='nav_link'>
-                                                <button
-                                                onClick={() => handleClick(2)}
-                                                >{language == 'ru-RU' ? 'Ключевые слова' : 'Keywords'}</button>
-                                                <p
-                                                style={{
-                                                    background: selected == 2 ? 'white' : 'rgb(220, 216, 216)'
-                                                }}
-                                                 className='found_movies_total'>{keywordsTotal}</p>
-                                            </div>
-                                            <div
-                                            style={{
-                                                background: selected == 3 ? 'rgb(220, 216, 216)' : 'initial'
-                                            }}
-                                             className='nav_link'>
-                                                <button
-                                                onClick={() => handleClick(3)}
-                                                >{language === 'ru-RU' ? 'ТВ шоу' : 'TV Shows'}</button>
-                                                <p
-                                                style={{
-                                                    background: selected == 3 ? 'white' : 'rgb(220, 216, 216)'
-                                                }}
-                                                 className='found_movies_total'>{tvShowsTotal}</p>
-                                            </div>
-                                        </nav>
+                                        <div className='found_movies_right'>
+                                            {
+                                                selected == 0 ?
+                                                    foundMovies.map(el =>
+                                                        <div className='found_movies_item' key={el.id}>
+                                                            <ResultMovie movie={el} />
+                                                        </div>
+                                                    )
+                                                    :
+                                                    selected == 1 ?
+                                                        foundPeople.map(el =>
+                                                            <div className='found_movies_item' key={el.id}>
+                                                                <ResultPeople people={el} />
+                                                            </div>
+                                                        )
+                                                        :
+                                                        selected == 2 ?
+                                                            fountKeywords.map(el =>
+                                                                <div className='found_movies_item' key={el.id}>
+                                                                    <ResultKeyword keyword={el} />
+                                                                </div>
+                                                            )
+                                                            :
+                                                            selected == 3 ?
+                                                                foundTvShows.map(el =>
+                                                                    <div className='found_movies_item' key={el.id}>
+                                                                        <ResultTvShow tvShow={el} />
+                                                                    </div>
+                                                                )
+                                                                : ''
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='found_movies_right'>
-                                    {
-                                        selected == 0 ? 
-                                        foundMovies.map(el =>
-                                            <div className='found_movies_item' key={el.id}>
-                                                <ResultMovie movie={el} />
-                                            </div>
-                                        )
-                                        : 
-                                        selected == 1 ? 
-                                        foundPeople.map(el =>
-                                            <div className='found_movies_item' key={el.id}>
-                                                <ResultPeople people={el} />
-                                            </div>
-                                        )
-                                        :
-                                        selected == 2 ?
-                                        fountKeywords.map(el =>
-                                            <div className='found_movies_item' key={el.id}>
-                                                <ResultKeyword  keyword={el} />
-                                            </div>
-                                        )
-                                        :
-                                        selected == 3 ?
-                                        foundTvShows.map(el =>
-                                            <div className='found_movies_item' key={el.id}>
-                                                <ResultTvShow tvShow={el} />
-                                            </div>
-                                        )
-                                        : ''
-                                    }
-                                </div>
-                            </div>
+                        }
 
-                        </div>
                     </div>
             }
         </section>

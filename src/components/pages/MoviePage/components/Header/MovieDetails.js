@@ -1,13 +1,15 @@
 import React from 'react';
 import Play from '../../../../../assets/Icons/Play';
 import { CircularProgressbar } from 'react-circular-progressbar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function MovieDetails({ movieDetails, genres, crew }) {
     const rating = Math.floor(Math.round(movieDetails.popularity) / 10)
     const { language } = useSelector(state => state.language)
+    const dispatch = useDispatch()
 
-    return (
+    try {
+       return (
         <div>
             <h1 className='movie_title'>{movieDetails.title}</h1>
             <div className='movie_realese_date'>
@@ -67,7 +69,12 @@ function MovieDetails({ movieDetails, genres, crew }) {
                 </div>
             </div>
         </div>
-    );
+    ); 
+    } catch (error) {
+        dispatch({ type: 'ERROR', payload: error.message })
+
+    }
+    
 }
 
 export default MovieDetails;

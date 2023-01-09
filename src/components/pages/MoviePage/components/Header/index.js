@@ -1,10 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import MovieDetails from './MovieDetails';
 
 function MovieHeader({ genres, movieDetails, crew }) {
+    const dispatch = useDispatch()
 
-    return (
+    try {
+       return (
         <div>
             <section
                 style={{
@@ -33,7 +36,12 @@ function MovieHeader({ genres, movieDetails, crew }) {
             </section>
 
         </div>
-    );
+    ); 
+    } catch (error) {
+        dispatch({ type: 'ERRORMOVIE', payload: error.message })
+
+    }
+    
 }
 
 export default MovieHeader;

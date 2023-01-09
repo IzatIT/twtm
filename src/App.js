@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import './App.css'
@@ -7,15 +7,13 @@ import HomePage from './components/pages/HomePage';
 import MoviePage from './components/pages/MoviePage';
 import { useDispatch, useSelector } from 'react-redux';
 import TvShowPage from './components/pages/TvShowPage';
-import ErrorPage from './components/pages/ErrorPage';
 import PersonPage from './components/pages/PersonPage';
 import SearchResults from './components/pages/SearchResults';
-import { useNavigate } from 'react-router-dom';
+import ErrorPage from './components/pages/ErrorPage';
 
 function App() {
   const dispatch = useDispatch()
   const { showed } = useSelector(state => state.submenu)
-
   const handleClick = (element) => {
     if (showed !== -1) {
       if (element.target.className !== 'menu_title') {
@@ -39,6 +37,7 @@ function App() {
       </Routes>
       <Footer />
     </div>
+
   );
 }
 

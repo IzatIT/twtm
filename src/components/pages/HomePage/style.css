@@ -2,6 +2,11 @@
     background-repeat: no-repeat;
     background-size: 100vw;
     background-position: top;
+
+}
+#home_gen{
+    min-height: 100vh;
+    position: relative;
 }
 .home{
     padding: 60px 0;

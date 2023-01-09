@@ -15,23 +15,34 @@ function TvShowPage() {
     const [cast, setCast] = useState([])
     const [crew, setCrew] = useState([])
     const [genres, setGenres] = useState([])
+    const [error, setError] = useState(false)
 
     const getDetails = async (id) => {
         setLoading(true)
-        await getMovies('tv', id, language)
-            .then(data => {
-                setTvDetails(data)
-                setGenres(data.genres)
-            })
+        try {
+            await getMovies('tv', id, language)
+                .then(data => {
+                    setTvDetails(data)
+                    setGenres(data.genres)
+                })
+        }
+        catch(e){
+            setError(true)
+        }
         setLoading(false)
     }
     const getCredits = async (id) => {
         setLoading(true)
-        await getMovies('tv', id + '/credits', language)
-            .then(data => {
-                setCrew(data.crew)
-                setCast(data.cast)
-            })
+        try {
+            await getMovies('tv', id + '/credits', language)
+                .then(data => {
+                    setCrew(data.crew)
+                    setCast(data.cast)
+                })
+        }
+        catch (e) {
+            setError(true)
+        }
         setLoading(false)
     }
 
@@ -47,10 +58,10 @@ function TvShowPage() {
                     <div className='loading_container'>
                         <Loading />
                     </div>
-                    :
+                    : 
                     <div>
-                        <TvHeader tvDetails={tvDetails} crew={crew} genres={genres} />
-                        <TvBody cast={cast} tvDetails={tvDetails} showId={showId} />
+                        <TvHeader error={error} tvDetails={tvDetails} crew={crew} genres={genres} />
+                        <TvBody error={error} cast={cast} tvDetails={tvDetails} showId={showId} />
                     </div>
             }
         </div>

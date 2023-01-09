@@ -7,7 +7,7 @@ import { ActiveOneReducer } from "./store/ActiveOneReducer"
 import { ActiveTwoReducer } from "./store/ActiveTwoReducer"
 import { ActiveThreeReducer } from "./store/ActiveThreeReducer"
 import { inputReducer } from "./store/InputReducer"
-
+import { ErrorReducer } from "./store/ErrorReducer"
 const rootReducer = combineReducers({
     mode: ModeReducer,
     language: LanguageReducer,
@@ -15,7 +15,8 @@ const rootReducer = combineReducers({
     activeOne: ActiveOneReducer,
     activeTwo: ActiveTwoReducer,
     activeThree: ActiveThreeReducer,
-    inputValue: inputReducer
+    inputValue: inputReducer,
+    error: ErrorReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools())

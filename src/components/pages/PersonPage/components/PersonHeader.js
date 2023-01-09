@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../../../../assets/getMovies';
 import Facebook from '../../../../assets/Icons/Facebook';
 import Instagram from '../../../../assets/Icons/Instagram';
 import Twitter from '../../../../assets/Icons/Twitter';
 import Loading from '../../../../assets/Loading';
-function PersonHeader({ personDetails }) {
+function PersonHeader({ personDetails, setError }) {
     const [loading, setLoading] = useState(false)
     const [social, setSocial] = useState({})
     const { language } = useSelector(state => state.language)
-
+    const dispatch = useDispatch()
     const getSocial = async () => {
         setLoading(true)
         try {
             await getMovies('person', personDetails.id + '/external_ids', language)
                 .then(data => setSocial(data))
         } catch (e) {
-            console.log(e.message)
+            setError(true)
         }
         setLoading(false)
     }
@@ -25,7 +25,8 @@ function PersonHeader({ personDetails }) {
         getSocial()
     }, [])
 
-    return (
+    try {
+       return (
         <div>
             {
                 loading ?
@@ -97,7 +98,11 @@ function PersonHeader({ personDetails }) {
                     </header>
             }
         </div>
-    );
+    ); 
+    } catch (error) {
+        dispatch({ type: 'ERRORPERSON', payload: error.message })
+    }
+    
 }
 
 export default PersonHeader;
