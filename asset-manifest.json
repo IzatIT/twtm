@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/twtm/static/css/main.14916850.css",
-    "main.js": "/twtm/static/js/main.8e48b99a.js",
+    "main.css": "/twtm/static/css/main.4f18e845.css",
+    "main.js": "/twtm/static/js/main.f8174149.js",
     "static/media/background.jpg": "/twtm/static/media/background.4530ff8df31fb2b4811b.jpg",
     "static/media/placeholderMovie.png": "/twtm/static/media/placeholderMovie.baba1a7394e8054d69cf.png",
-    "static/media/logo.svg": "/twtm/static/media/logo.b1f5c6ebb203312360e3b549249e08ec.svg",
+    "static/media/logo.svg": "/twtm/static/media/logo.77c8916485bfc0ff2cdfaac130995343.svg",
     "index.html": "/twtm/index.html",
-    "main.14916850.css.map": "/twtm/static/css/main.14916850.css.map",
-    "main.8e48b99a.js.map": "/twtm/static/js/main.8e48b99a.js.map"
+    "main.4f18e845.css.map": "/twtm/static/css/main.4f18e845.css.map",
+    "main.f8174149.js.map": "/twtm/static/js/main.f8174149.js.map"
   },
   "entrypoints": [
-    "static/css/main.14916850.css",
-    "static/js/main.8e48b99a.js"
+    "static/css/main.4f18e845.css",
+    "static/js/main.f8174149.js"
   ]
 }
