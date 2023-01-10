@@ -9,15 +9,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import TvShowPage from './components/pages/TvShowPage';
 import PersonPage from './components/pages/PersonPage';
 import SearchResults from './components/pages/SearchResults';
+import { SHOWED_SUBMENU } from './redux/store/actions';
 
 function App() {
   const dispatch = useDispatch()
   const { showed } = useSelector(state => state.submenu)
+  
   const handleClick = (element) => {
     if (showed !== -1) {
       if (element.target.className !== 'menu_title') {
-        dispatch({ type: 'SHOW', payload: -1 })
-
+        dispatch({ type: SHOWED_SUBMENU, payload: -1 })
       }
     }
   }

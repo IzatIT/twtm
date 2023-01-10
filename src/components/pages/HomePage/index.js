@@ -5,10 +5,17 @@ import SearchInput from '../../../assets/SearchInput';
 import HomeSectionOne from './components/HomeSectionOne';
 import bgImage from '../../../assets/images/background.jpg'
 import ErrorPage from '../ErrorPage';
+
+
+
+
 function HomePage() {
     const { language } = useSelector(state => state.language)
     const { error } = useSelector(state => state.error)
     const {mode} = useSelector(state => state.mode)
+
+
+    
     return (
         <div id='home_gen'
         style={{

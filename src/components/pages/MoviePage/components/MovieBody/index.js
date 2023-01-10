@@ -5,35 +5,40 @@ import Instagram from '../../../../../assets/Icons/Instagram';
 import Twitter from '../../../../../assets/Icons/Twitter';
 import PersonCard from '../../../PersonCard';
 import { getMovies } from '../../../../../assets/getMovies';
+import { ERROR_MOVIE, ERROR_GEN, ADD_MOVIE_KEYWORDS, ADD_MOVIE_SOCIAL_MEDIA } from '../../../../../redux/store/actions';
+import { useParams } from 'react-router-dom';
 
-function MovieBody({ cast, movieDetails, movieId }) {
-    const [keywords, setKeywords] = useState([])
-    const [socialMedia, setSocialMedia] = useState([])
+function MovieBody() {
+    const { movieId } = useParams()
+    const { movieDetails } = useSelector(state => state.data)
+    const { movieSocialMedias } = useSelector(state => state.data)
+    const { movieKeywords } = useSelector(state => state.data)
     const { language } = useSelector(state => state.language)
-    const {mode} = useSelector(state => state.mode)
+    const { mode } = useSelector(state => state.mode)
+    const { cast } = useSelector(state => state.data.movieCredits)
     const dispatch = useDispatch()
 
     const getKeywords = async () => {
         try {
             await getMovies('movie', movieId + '/keywords', language)
-                .then(keywords => setKeywords(keywords.keywords))
-            dispatch({ type: 'ERROR', payload: '' })
-            dispatch({ type: 'ERRORMOVIE', payload: '' })
+                .then(keywords =>
+                    dispatch({ type: ADD_MOVIE_KEYWORDS, payload: keywords.keywords })
+                )
+            dispatch({ type: ERROR_MOVIE, payload: '' })
+            dispatch({ type: ERROR_GEN, payload: '' })
 
         } catch (e) {
-            dispatch({ type: 'ERRORMOVIE', payload: e.message })
+            dispatch({ type: ERROR_MOVIE, payload: e.message })
         }
     }
     const getSocialMedia = async () => {
         try {
             await getMovies('movie', movieId + '/external_ids', language)
-                .then(data => {
-                    setSocialMedia(data)
-                })
-            dispatch({ type: 'ERROR', payload: '' })
-            dispatch({ type: 'ERRORMOVIE', payload: '' })
+                .then(data =>
+                    dispatch({ type: ADD_MOVIE_SOCIAL_MEDIA, payload: data })
+                )
         } catch (e) {
-            dispatch({ type: 'ERRORMOVIE', payload: e.message })
+            dispatch({ type: ERROR_MOVIE, payload: e.message })
         }
     }
 
@@ -41,7 +46,7 @@ function MovieBody({ cast, movieDetails, movieId }) {
     useEffect(() => {
         getKeywords()
         getSocialMedia()
-    }, [])
+    }, [language])
 
     try {
         return (
@@ -59,19 +64,19 @@ function MovieBody({ cast, movieDetails, movieId }) {
                             </div>
                         </div>
                         <div className='movie_body_right'
-                        style={{
-                            boxShadow: `-100px 0 50px 10px ${mode ? 'black' : 'white'}`
-                        }}
+                            style={{
+                                boxShadow: `-100px 0 50px 10px ${mode ? 'black' : 'white'}`
+                            }}
                         >
                             <nav className='movie_extarnals'>
-                                <a className='movie_social' target='_blank' href={`https://www.facebook.com/${socialMedia.facebook_id}`}><Facebook /></a>
-                                <a className='movie_social' target='_blank' href={`https://twitter.com/${socialMedia.twitter_id}`}><Twitter /></a>
-                                <a className='movie_social' target='_blank' href={`https://www.instagram.com/${socialMedia.wikidata_id}`}><Instagram /></a>
+                                <a className='movie_social' target='_blank' href={`https://www.facebook.com/${movieSocialMedias.facebook_id}`}><Facebook /></a>
+                                <a className='movie_social' target='_blank' href={`https://twitter.com/${movieSocialMedias.twitter_id}`}><Twitter /></a>
+                                <a className='movie_social' target='_blank' href={`https://www.instagram.com/${movieSocialMedias.wikidata_id}`}><Instagram /></a>
                             </nav>
                             <div className='movie_extra_info'>
                                 <div className='extra_info_item'>
                                     <h3>{language === 'ru-RU' ? 'Исходное название' : 'Original title'}</h3>
-                                     <p>{movieDetails.original_title}</p>
+                                    <p>{movieDetails.original_title}</p>
                                 </div>
                                 <div className='extra_info_item'>
                                     <h3>{language === 'ru-RU' ? 'Статус' : 'Status'}</h3>
@@ -97,7 +102,7 @@ function MovieBody({ cast, movieDetails, movieId }) {
                             </div>
                             <div className='movie_keywords'>
                                 {
-                                    keywords.map(el => <button
+                                    movieKeywords.map(el => <button
                                         style={{
                                             color: mode ? 'white' : 'black',
                                             background: mode ? 'black' : 'white',
@@ -112,7 +117,7 @@ function MovieBody({ cast, movieDetails, movieId }) {
             </section>
         );
     } catch (error) {
-        dispatch({ type: 'ERRORMOVIE', payload: error.message })
+        dispatch({ type: ERROR_MOVIE, payload: error.message })
 
     }
 

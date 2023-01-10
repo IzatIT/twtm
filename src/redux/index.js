@@ -3,20 +3,19 @@ import { ModeReducer } from "./store/ModeReducer"
 import { LanguageReducer } from "./store/LanguageReducer"
 import { SubmenuReducer } from "./store/ShowedSubmenuReducer"
 import { composeWithDevTools } from "redux-devtools-extension"
-import { ActiveOneReducer } from "./store/ActiveOneReducer"
-import { ActiveTwoReducer } from "./store/ActiveTwoReducer"
-import { ActiveThreeReducer } from "./store/ActiveThreeReducer"
+import { ActiveCategoryReducer } from "./store/ActiveCategoryReducer"
 import { inputReducer } from "./store/InputReducer"
 import { ErrorReducer } from "./store/ErrorReducer"
+import { DataReducer } from "./store/DataReducer"
+
 const rootReducer = combineReducers({
     mode: ModeReducer,
     language: LanguageReducer,
     submenu: SubmenuReducer,
-    activeOne: ActiveOneReducer,
-    activeTwo: ActiveTwoReducer,
-    activeThree: ActiveThreeReducer,
+    activeCategory: ActiveCategoryReducer,
     inputValue: inputReducer,
-    error: ErrorReducer
+    error: ErrorReducer,
+    data: DataReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools())

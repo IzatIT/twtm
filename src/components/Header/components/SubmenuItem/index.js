@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function SubmenuItem({ submenu }) {
-    const {mode} = useSelector(state => state.mode)
 
 
     return (

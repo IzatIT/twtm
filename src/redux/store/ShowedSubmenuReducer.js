@@ -5,7 +5,7 @@ const defaultState = {
 
 export const SubmenuReducer = (state = defaultState, action) => {
     switch(action.type){
-        case 'SHOW':
+        case 'SHOWED_SUBMENU':
             return {...state, showed: action.payload}
         default:
             return state

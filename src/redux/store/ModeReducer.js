@@ -5,10 +5,9 @@ const defaultState = {
 
 export const ModeReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case 'MODECHANGE': 
-            return (
-                { ...state, mode: !state.mode }
-            )
+        case 'MODE_CHANGE':
+            localStorage.setItem('mode', JSON.stringify(!state.mode))
+            return { ...state, mode: !state.mode }
         default:
             return state
     }

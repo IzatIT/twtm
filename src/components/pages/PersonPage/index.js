@@ -7,26 +7,26 @@ import Loading from '../../../assets/Loading';
 import PersonBody from './components/PersonBody';
 import PersonHeader from './components/PersonHeader';
 import ErrorPage from '../ErrorPage';
+import { ADD_PERSON_DETAILS, ERROR_GEN, ERROR_PERSON } from '../../../redux/store/actions';
 
 function PersonPage() {
     const { language } = useSelector(state => state.language)
     const { actorId } = useParams()
-    const {mode} = useSelector(state => state.mode)
+    const { mode } = useSelector(state => state.mode)
     const [loading, setLoading] = useState(false)
-    const [personDetails, setPersonDetails] = useState({})
     const { personError } = useSelector(state => state.error)
-
     const dispatch = useDispatch()
 
     const getCreditInfo = async () => {
         setLoading(true)
         try {
             await getMovies('person', actorId, language)
-                .then(data => setPersonDetails(data))
-                dispatch({ type: 'ERROR', payload: '' })
-                dispatch({ type: 'ERRORPERSON', payload: '' })
-            } catch (e) {
-            dispatch({ type: 'ERRORPERSON', payload: e.message })
+                .then(data => dispatch({ type: ADD_PERSON_DETAILS, payload: data }))
+            dispatch({ type: ERROR_PERSON, payload: '' })
+            dispatch({ type: ERROR_GEN, payload: '' })
+
+        } catch (e) {
+            dispatch({ type: ERROR_PERSON, payload: e.message })
         }
         setLoading(false)
     }
@@ -38,11 +38,11 @@ function PersonPage() {
     try {
         return (
 
-            <div id="personPage" 
-            style={{
-                background: mode ? 'black' : 'white',
-                color: mode ? 'white' : 'black'
-            }}
+            <div id="personPage"
+                style={{
+                    background: mode ? 'black' : 'white',
+                    color: mode ? 'white' : 'black'
+                }}
             >
                 {
                     loading ?
@@ -54,8 +54,8 @@ function PersonPage() {
                             {
                                 personError === '' ?
                                     <div className='person_page'>
-                                        <PersonHeader personDetails={personDetails} />
-                                        <PersonBody personDetails={personDetails} />
+                                        <PersonHeader />
+                                        <PersonBody />
                                     </div>
                                     :
                                     <div className='error_container'>
@@ -71,7 +71,7 @@ function PersonPage() {
             </div>
         )
     } catch (error) {
-        dispatch({ type: 'ERRORPERSON', payload: error.message })
+        dispatch({ type: ERROR_PERSON, payload: error.message })
     }
 
 }

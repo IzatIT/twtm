@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { INPUT_CHANGE } from '../../redux/store/actions';
 
 function SearchInput() {
     const {language} = useSelector(state => state.language)
@@ -10,7 +11,7 @@ function SearchInput() {
     const navigate = useNavigate()
 
     const handleChange = (e) => {
-        dispatch({type:'INPUTCHANGE', payload: e.target.value})
+        dispatch({type: INPUT_CHANGE, payload: e.target.value})
     }
 
     const handleClick = () => {

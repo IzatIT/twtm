@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './style.css'
 import { getMovies } from '../../../assets/getMovies';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TvHeader from './components/Header';
 import TvBody from './components/MovieBody';
 import Loading from '../../../assets/Loading';
-
+import { ERROR_GEN } from '../../../redux/store/actions';
 function TvShowPage() {
     const [loading, setLoading] = useState(false)
     const { showId } = useParams()
-    const {mode} = useSelector(state => state.mode)
+    const { mode } = useSelector(state => state.mode)
     const { language } = useSelector(state => state.language)
     const [tvDetails, setTvDetails] = useState({})
     const [cast, setCast] = useState([])
     const [crew, setCrew] = useState([])
     const [genres, setGenres] = useState([])
-    const [error, setError] = useState(false)
+    const dispatch = useDispatch()
 
     const getDetails = async (id) => {
         setLoading(true)
@@ -26,9 +26,10 @@ function TvShowPage() {
                     setTvDetails(data)
                     setGenres(data.genres)
                 })
+            dispatch({ type: ERROR_GEN, payload: '' })
         }
-        catch(e){
-            setError(true)
+        catch (e) {
+            dispatch({ type: ERROR_GEN, payload: e.message })
         }
         setLoading(false)
     }
@@ -40,9 +41,10 @@ function TvShowPage() {
                     setCrew(data.crew)
                     setCast(data.cast)
                 })
+            dispatch({ type: ERROR_GEN, payload: '' })
         }
         catch (e) {
-            setError(true)
+            dispatch({ type: ERROR_GEN, payload: e.message })
         }
         setLoading(false)
     }
@@ -51,23 +53,23 @@ function TvShowPage() {
     useEffect(() => {
         getDetails(showId)
         getCredits(showId)
-    }, [])
+    }, [language])
     return (
         <div
-        style={{
-            background: mode ? 'black' : 'white',
-            color: mode ? 'white' : 'black'
-        }}
+            style={{
+                background: mode ? 'black' : 'white',
+                color: mode ? 'white' : 'black'
+            }}
         >
             {
                 loading ?
                     <div className='loading_container'>
                         <Loading />
                     </div>
-                    : 
+                    :
                     <div>
-                        <TvHeader error={error} tvDetails={tvDetails} crew={crew} genres={genres} />
-                        <TvBody error={error} cast={cast} tvDetails={tvDetails} showId={showId} />
+                        <TvHeader tvDetails={tvDetails} crew={crew} genres={genres} />
+                        <TvBody cast={cast} tvDetails={tvDetails} showId={showId} />
                     </div>
             }
         </div>

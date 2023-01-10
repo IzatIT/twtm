@@ -6,18 +6,19 @@ import Categories from './components/Categories';
 import { getMovies } from '../../../../../assets/getMovies';
 import MovieShow from './components/MovieShow';
 import Loading from '../../../../../assets/Loading';
-import ErrorPage from '../../../ErrorPage';
+import { ADD_HOME_DATA_ONE, ADD_HOME_DATA_THREE, ADD_HOME_DATA_TWO, ERROR_GEN } from '../../../../../redux/store/actions';
 
 function HomeSectionOne({ section }) {
     const [loading, setLoading] = useState(false)
     const { language } = useSelector(state => state.language)
     const { mode } = useSelector(state => state.mode)
-    const { active } = useSelector(state => section === 'one' ? state.activeOne : section === 'two' ? state.activeTwo : section === 'three' ? state.activeThree : '')
+    const { homeDataOne, homeDataTwo, homeDataThree } = useSelector(state => state.data)
+    const { activeOne, activeTwo, activeThree } = useSelector(state => state.activeCategory)
     const categories = getCategories(language, section)
-    const [movieList, setMovieList] = useState([])
     const dispatch = useDispatch()
-
+    const active = section === 'one' ? activeOne : section === 'two' ? activeTwo : section === 'three' ? activeThree : ''
     const activeCategory = categories.filter(el => el.id === active)
+
 
     function setTitle() {
         if (language === 'ru-RU') {
@@ -49,13 +50,12 @@ function HomeSectionOne({ section }) {
         try {
             getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=3')
                 .then(data => {
-                    setMovieList(data)
+                    dispatch({ type: section === 'one' ? ADD_HOME_DATA_ONE : section === 'two' ? ADD_HOME_DATA_TWO :section === 'three' ? ADD_HOME_DATA_THREE : '', payload: data })
                 })
-            movieList !== undefined &&
-                dispatch({ type: 'ERROR', payload: '' })
+            dispatch({ type: ERROR_GEN, payload: '' })
         }
         catch (e) {
-            dispatch({ type: 'ERROR', payload: e.message })
+            dispatch({ type: ERROR_GEN, payload: e.message })
         }
 
         setLoading(false)
@@ -94,7 +94,16 @@ function HomeSectionOne({ section }) {
                             {
                                 <div className='categories_movies'>
                                     {
-                                        movieList.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                        section === 'one' ?
+                                        homeDataOne.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                        :
+                                        section === 'two' ?
+                                        homeDataTwo.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                        :
+                                        section === 'three' ?
+                                        homeDataThree.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                        :
+                                        ''
                                     }
                                 </div>
                             }
@@ -105,7 +114,7 @@ function HomeSectionOne({ section }) {
         );
     }
     catch (e) {
-        dispatch({ type: 'ERROR', payload: e.message })
+        dispatch({ type: ERROR_GEN, payload: e.message })
     }
 
 

@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom';
 import placeholderImage from '../../../../../../../assets/images/placeholderMovie.png'
 
 function MovieShow({ movie, activeCategory }) {
-
   const category = activeCategory === false ? 'movie' : activeCategory[0].category
-
+  
   const rating = Math.floor(Math.round(movie.popularity) / 10)
 
   const handleClickScroll = () => {

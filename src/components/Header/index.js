@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { menuList } from './components';
 import MenuItem from './components/MenuItem';
 import { Link } from 'react-router-dom';
+import { LANGUAGE_CHANGE, MODE_CHANGE } from '../../redux/store/actions';
 
 function Header() {
     const { language } = useSelector(state => state.language)
@@ -12,13 +13,12 @@ function Header() {
     const dispatch = useDispatch()
 
     const handleChange = (element) => {
-        dispatch({ type: 'CHANGE', payload: element.target.value })
+        dispatch({ type: LANGUAGE_CHANGE, payload: element.target.value })
     }
 
 
      const handleClick = () => {
-        localStorage.setItem('mode', JSON.stringify(!mode))
-        dispatch({ type: 'MODECHANGE' })
+        dispatch({ type: MODE_CHANGE })
     }
 
     return (

@@ -7,15 +7,12 @@ import MovieHeader from './components/Header';
 import MovieBody from './components/MovieBody';
 import Loading from '../../../assets/Loading';
 import ErrorPage from '../ErrorPage';
+import { ERROR_MOVIE, ERROR_GEN, ADD_MOVIE_DETAILS, ADD_MOVIE_CREDITS } from '../../../redux/store/actions';
 function MoviePage() {
     const [loading, setLoading] = useState(false)
     const { movieId } = useParams()
     const { language } = useSelector(state => state.language)
-    const {mode} = useSelector(state => state.mode)
-    const [movieDetails, setMovieDetails] = useState({})
-    const [cast, setCast] = useState([])
-    const [crew, setCrew] = useState([])
-    const [genres, setGenres] = useState([])
+    const { mode } = useSelector(state => state.mode)
     const dispatch = useDispatch()
     const { movieError } = useSelector(state => state.error)
 
@@ -26,11 +23,13 @@ function MoviePage() {
         try {
             await getMovies('movie', id, language)
                 .then(data => {
-                    setMovieDetails(data)
-                    setGenres(data.genres)
+                    dispatch({type: ADD_MOVIE_DETAILS, payload: data})
                 })
+            dispatch({ type: ERROR_GEN, payload: '' })
+            dispatch({ type: ERROR_MOVIE, payload: '' })
+
         } catch (e) {
-            dispatch({ type: 'ERRORMOVI', payload: e.message })
+            dispatch({ type: ERROR_MOVIE, payload: e.message })
         }
 
         setLoading(false)
@@ -40,12 +39,10 @@ function MoviePage() {
         try {
             await getMovies('movie', id + '/credits', language)
                 .then(data => {
-                    setCrew(data.crew)
-                    setCast(data.cast)
+                    dispatch({type: ADD_MOVIE_CREDITS, payload: data})
                 })
-                dispatch({ type: 'ERROR', payload: '' })
         } catch (e) {
-            dispatch({ type: 'ERRORMOVIE', payload: e.message })
+            dispatch({ type: ERROR_MOVIE, payload: e.message })
         }
         setLoading(false)
     }
@@ -54,7 +51,7 @@ function MoviePage() {
     useEffect(() => {
         getDetails(movieId)
         getCredits(movieId)
-    }, [])
+    }, [language])
     try {
         return (
             <div style={{
@@ -71,8 +68,8 @@ function MoviePage() {
                             {
                                 movieError === '' ?
                                     <>
-                                        <MovieHeader movieDetails={movieDetails} crew={crew} genres={genres} />
-                                        <MovieBody cast={cast} movieDetails={movieDetails} movieId={movieId} />
+                                        <MovieHeader />
+                                        <MovieBody/>
                                     </>
                                     :
                                     <div className='error_container'>
@@ -85,7 +82,7 @@ function MoviePage() {
 
         );
     } catch (error) {
-        dispatch({ type: 'ERRORMOVIE', payload: error.message })
+        dispatch({ type: ERROR_MOVIE, payload: error.message })
     }
 
 }

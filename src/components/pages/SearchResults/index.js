@@ -11,6 +11,7 @@ import ResultKeyword from './components/ResultKeyword';
 import ResultTvShow from './components/ResultTvShow';
 import { useNavigate } from 'react-router-dom';
 import ErrorPage from '../ErrorPage';
+import { ERROR_GEN, ERROR_SEARCH, INPUT_CHANGE } from '../../../redux/store/actions';
 function SearchResults() {
     const navigate = useNavigate()
     const { inputValue } = useSelector(state => state.inputValue)
@@ -28,11 +29,11 @@ function SearchResults() {
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
     const [selected, setSelected] = useState(0)
-    const {searchError} = useSelector(state => state.error)
+    const { searchError } = useSelector(state => state.error)
 
-    
+
     const handleChange = (e) => {
-        dispatch({ type: 'INPUTCHANGE', payload: e.target.value })
+        dispatch({ type: INPUT_CHANGE, payload: e.target.value })
     }
 
 
@@ -48,9 +49,12 @@ function SearchResults() {
                     setMovieTotal(data.total_results)
                     setFoundMovies(data.results)
                 })
+            dispatch({ type: ERROR_GEN, payload: '' })
+            dispatch({ type: ERROR_SEARCH, payload: '' })
+
         }
         catch (e) {
-            dispatch({type: 'ERRORSEARCH', payload: e.message})
+            dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
         setLoading(false)
     }
@@ -64,7 +68,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            dispatch({type: 'ERRORSEARCH', payload: e.message})
+            dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
         setLoading(false)
     }
@@ -78,7 +82,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            dispatch({type: 'ERRORSEARCH', payload: e.message})
+            dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
         setLoading(false)
     }
@@ -92,7 +96,7 @@ function SearchResults() {
                 })
         }
         catch (e) {
-            dispatch({type: 'ERRORSEARCH', payload: e.message})
+            dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
         setLoading(false)
     }
@@ -103,7 +107,7 @@ function SearchResults() {
         searchPeople()
         searchKeywords()
         searchTvShows()
-    }, [])
+    }, [language])
     return (
         <section id="found_movies">
             {

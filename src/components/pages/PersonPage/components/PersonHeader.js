@@ -5,28 +5,31 @@ import Facebook from '../../../../assets/Icons/Facebook';
 import Instagram from '../../../../assets/Icons/Instagram';
 import Twitter from '../../../../assets/Icons/Twitter';
 import Loading from '../../../../assets/Loading';
-function PersonHeader({ personDetails, setError }) {
+import { ERROR_PERSON, ERROR_GEN, ADD_PERSON_SOCIAL_MEDIA } from '../../../../redux/store/actions';
+function PersonHeader() {
     const [loading, setLoading] = useState(false)
-    const [social, setSocial] = useState({})
-    const {mode} = useSelector(state => state.mode)
+    const { personDetails } = useSelector(state => state.data)
+    const {personSocialMedias} = useSelector(state => state.data)
     const { language } = useSelector(state => state.language)
     const dispatch = useDispatch()
+
+
     const getSocial = async () => {
         setLoading(true)
         try {
             await getMovies('person', personDetails.id + '/external_ids', language)
-                .then(data => setSocial(data))
-            dispatch({ type: 'ERROR', payload: '' })
-            dispatch({ type: 'ERRORPERSON', payload: '' })
+                .then(data => dispatch({type: ADD_PERSON_SOCIAL_MEDIA, payload: data}))
+            dispatch({ type: ERROR_GEN, payload: '' })
+            dispatch({ type: ERROR_PERSON, payload: '' })
         } catch (e) {
-            setError(true)
+            dispatch({ type: ERROR_PERSON, payload: '' })
         }
         setLoading(false)
     }
 
     useEffect(() => {
         getSocial()
-    }, [])
+    }, [language])
 
     try {
         return (
@@ -41,9 +44,9 @@ function PersonHeader({ personDetails, setError }) {
                             <img className='person_img' loading='lazy' width={300} height={450} src={`https://www.themoviedb.org/t/p/w440_and_h660_face${personDetails.profile_path}`} alt="Image not available" />
                             <div className='person_details'>
                                 <nav className='person_social'>
-                                    <a href={`https://facebook.com/${social.facebook_id}`}><Facebook /></a>
-                                    <a href={`https://instagram.com/${social.instagram_id}`}><Instagram /></a>
-                                    <a href={`https://twitter.com/${social.twitter_id}`}><Twitter /></a>
+                                    <a href={`https://facebook.com/${personSocialMedias.facebook_id}`}><Facebook /></a>
+                                    <a href={`https://instagram.com/${personSocialMedias.instagram_id}`}><Instagram /></a>
+                                    <a href={`https://twitter.com/${personSocialMedias.twitter_id}`}><Twitter /></a>
                                 </nav>
                                 <div className='person_info'>
                                     <h3 className='person_info_title'>{language === 'ru-RU' ? 'Персональная информация' : 'Personal Info'}</h3>
@@ -103,7 +106,7 @@ function PersonHeader({ personDetails, setError }) {
             </div>
         );
     } catch (error) {
-        dispatch({ type: 'ERRORPERSON', payload: error.message })
+        dispatch({ type: ERROR_PERSON, payload: error.message })
     }
 
 }

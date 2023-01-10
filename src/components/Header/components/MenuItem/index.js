@@ -1,6 +1,7 @@
 import React from 'react';
 import SubmenuItem from '../SubmenuItem';
 import { useSelector, useDispatch } from 'react-redux';
+import { SHOWED_SUBMENU } from '../../../../redux/store/actions';
 
 
 function MenuItem({ menuItem }) {
@@ -10,9 +11,9 @@ function MenuItem({ menuItem }) {
 
     const handleClick = () => {
         showed === menuItem.key ?
-            dispatch({ type: 'SHOW', payload: -1 })
+            dispatch({ type: SHOWED_SUBMENU, payload: -1 })
             :
-            dispatch({ type: 'SHOW', payload: menuItem.key })
+            dispatch({ type: SHOWED_SUBMENU, payload: menuItem.key })
     }
 
     return (

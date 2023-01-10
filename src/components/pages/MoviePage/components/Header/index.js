@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { ERROR_MOVIE } from '../../../../../redux/store/actions';
 import MovieDetails from './MovieDetails';
 
-function MovieHeader({ genres, movieDetails, crew }) {
+function MovieHeader() {
     const dispatch = useDispatch()
-
+    const {movieDetails} = useSelector(state => state.data)
+    
     try {
         return (
             <div>
@@ -26,7 +27,7 @@ function MovieHeader({ genres, movieDetails, crew }) {
                                             alt="" />
                                     </div>
                                     <div className='movie_right_container'>
-                                        <MovieDetails movieDetails={movieDetails} crew={crew} genres={genres} />
+                                        <MovieDetails />
                                     </div>
                                 </header>
                             </div>
@@ -38,7 +39,7 @@ function MovieHeader({ genres, movieDetails, crew }) {
             </div>
         );
     } catch (error) {
-        dispatch({ type: 'ERRORMOVIE', payload: error.message })
+        dispatch({ type: ERROR_MOVIE, payload: error.message })
 
     }
 
