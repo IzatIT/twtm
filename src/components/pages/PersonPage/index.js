@@ -11,6 +11,7 @@ import ErrorPage from '../ErrorPage';
 function PersonPage() {
     const { language } = useSelector(state => state.language)
     const { actorId } = useParams()
+    const {mode} = useSelector(state => state.mode)
     const [loading, setLoading] = useState(false)
     const [personDetails, setPersonDetails] = useState({})
     const { personError } = useSelector(state => state.error)
@@ -33,11 +34,16 @@ function PersonPage() {
 
     useEffect(() => {
         getCreditInfo()
-    }, [])
+    }, [language])
     try {
         return (
 
-            <div id="personPage">
+            <div id="personPage" 
+            style={{
+                background: mode ? 'black' : 'white',
+                color: mode ? 'white' : 'black'
+            }}
+            >
                 {
                     loading ?
                         <div className='loading_container'>

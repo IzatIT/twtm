@@ -8,6 +8,7 @@ import Loading from '../../../../assets/Loading';
 function PersonHeader({ personDetails, setError }) {
     const [loading, setLoading] = useState(false)
     const [social, setSocial] = useState({})
+    const {mode} = useSelector(state => state.mode)
     const { language } = useSelector(state => state.language)
     const dispatch = useDispatch()
     const getSocial = async () => {

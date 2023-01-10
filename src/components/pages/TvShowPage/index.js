@@ -10,6 +10,7 @@ import Loading from '../../../assets/Loading';
 function TvShowPage() {
     const [loading, setLoading] = useState(false)
     const { showId } = useParams()
+    const {mode} = useSelector(state => state.mode)
     const { language } = useSelector(state => state.language)
     const [tvDetails, setTvDetails] = useState({})
     const [cast, setCast] = useState([])
@@ -52,7 +53,12 @@ function TvShowPage() {
         getCredits(showId)
     }, [])
     return (
-        <div>
+        <div
+        style={{
+            background: mode ? 'black' : 'white',
+            color: mode ? 'white' : 'black'
+        }}
+        >
             {
                 loading ?
                     <div className='loading_container'>

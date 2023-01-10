@@ -4,13 +4,16 @@ import { useSelector } from 'react-redux';
 import logo from '../../assets/images/logo.svg'
 function Footer() {
     const { language } = useSelector(state => state.language)
+    const {mode} = useSelector(state => state.mode)
     return (
         <footer id='footer'>
             <div className='container'>
                 <div className='footer'>
                     <div className='footer_left'>
                         <img className='footer_logo' src={logo} alt="" />
-                        <button className='footer_btn'>
+                        <button className='footer_btn' style={{
+                            background: mode ? 'black' : 'white'
+                        }}>
                         {language === 'ru-RU' ? 'Привет, друг!' : 'Hello, friend'}
                         </button>
                     </div>

@@ -80,6 +80,7 @@ function PersonBody({ personDetails }) {
                         <button
                             onClick={() => setHide(!hide)}
                             style={{
+                                background: mode ? 'black' : 'white',
                                 boxShadow: mode && hide ? `-50px 0 30px 20px black,
                         -100px 0 50px 20px black,
                         -130px 0 80px 20px black,
@@ -125,7 +126,7 @@ function PersonBody({ personDetails }) {
                                 <div className='list_item' key={el.id}>
                                     <h1>&#8722;</h1>
                                     <Link
-                                        style={{ color: 'black', }}
+                                        style={{ color: mode ? 'white' :  'black', }}
                                         className='list_item_link' to={`/movie/${el.id}`}>{el.title}</Link>
                                 </div>
                             )
@@ -135,7 +136,7 @@ function PersonBody({ personDetails }) {
                                 <div className='list_item' key={el.id}>
                                     <h1>&#8722;</h1>
                                     <Link
-                                        style={{ color: 'black' }}
+                                        style={{ color: mode ? 'white' : 'black' }}
                                         className='list_item_link' to={`/movie/${el.id}`}>{el.title}</Link>
                                 </div>
                             )
@@ -148,7 +149,7 @@ function PersonBody({ personDetails }) {
                                 <div className='list_item' key={el.id}>
                                     <h1>&#8722;</h1>
                                     <Link
-                                        style={{ color: 'black', }}
+                                        style={{ color:mode ? 'white': 'black', }}
                                         className='list_item_link' to={`/tv/${el.id}`}>{el.original_name}</Link>
                                 </div>
                             )
@@ -158,7 +159,7 @@ function PersonBody({ personDetails }) {
                                 <div className='list_item' key={el.id}>
                                     <h1>&#8722;</h1>
                                     <Link
-                                        style={{ color: 'black' }}
+                                        style={{ color: mode ? 'white' : 'black' }}
                                         className='list_item_link' to={`/tv/${el.id}`}>{el.original_name}</Link>
                                 </div>
                             )

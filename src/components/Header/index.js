@@ -17,6 +17,7 @@ function Header() {
 
 
      const handleClick = () => {
+        localStorage.setItem('mode', JSON.stringify(!mode))
         dispatch({ type: 'MODECHANGE' })
     }
 

@@ -10,6 +10,7 @@ import ErrorPage from '../../../ErrorPage';
 function TvBody({ cast, tvDetails, showId, error }) {
     const [socialMedia, setSocialMedia] = useState([])
     const { language } = useSelector(state => state.language)
+    const {mode} = useSelector(state => state.mode)
 
     useEffect(() => {
         getMovies('tv', showId + '/external_ids', language)
@@ -39,7 +40,11 @@ function TvBody({ cast, tvDetails, showId, error }) {
                             }
 
 
-                            <div className='movie_body_right'>
+                            <div className='movie_body_right'
+                            style={{
+                                boxShadow: `-100px 0 50px 10px ${mode ? 'black' : 'white'}`
+                            }}
+                            >
                                 <nav className='movie_extarnals'>
                                     <a className='movie_social' target='_blank' href={`https://www.facebook.com/${socialMedia.facebook_id}`}><Facebook /></a>
                                     <a className='movie_social' target='_blank' href={`https://twitter.com/${socialMedia.twitter_id}`}><Twitter /></a>

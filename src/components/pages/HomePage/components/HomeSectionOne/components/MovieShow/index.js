@@ -56,7 +56,7 @@ function MovieShow({ movie, activeCategory }) {
             </div>
           </div>
           <div className='movieShow_text_container'>
-            <h3 className='movieShow_title'>{movie.title}</h3>
+            <h3 className='movieShow_title'>{movie.title || movie.name}</h3>
             <p className='movieShow_release_date'>{movie.release_date}</p>
           </div>
         </div>

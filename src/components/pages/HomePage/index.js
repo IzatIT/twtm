@@ -8,14 +8,17 @@ import ErrorPage from '../ErrorPage';
 function HomePage() {
     const { language } = useSelector(state => state.language)
     const { error } = useSelector(state => state.error)
-
+    const {mode} = useSelector(state => state.mode)
     return (
-        <div id='home_gen'>
+        <div id='home_gen'
+        style={{
+            backgroundColor: mode ? 'black' : 'white'
+        }}>
             {
                 error === '' ?
                     <>
                         <section id='home' style={{
-                            backgroundImage: `url('${bgImage}')`
+                            backgroundImage: `url('${bgImage}')`,
                         }}>
                             <div className='container'>
                                 <div className='home'>

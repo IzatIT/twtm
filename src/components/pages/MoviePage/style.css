@@ -139,7 +139,11 @@
 
 .movie_body_right{
     padding: 30px 20px;
-    box-shadow: -100px 0 50px 10px white;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
 }
 .extra_info_item{
     margin: 10px 0;

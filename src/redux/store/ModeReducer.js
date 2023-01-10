@@ -1,12 +1,14 @@
 const defaultState = {
-    mode: false
+    mode: JSON.parse(localStorage.getItem('mode')) === false ? false : true
 }
 
 
 export const ModeReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'MODECHANGE': 
-            return {...state, mode: !state.mode}
+            return (
+                { ...state, mode: !state.mode }
+            )
         default:
             return state
     }

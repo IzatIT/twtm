@@ -11,12 +11,16 @@ function MoviePage() {
     const [loading, setLoading] = useState(false)
     const { movieId } = useParams()
     const { language } = useSelector(state => state.language)
+    const {mode} = useSelector(state => state.mode)
     const [movieDetails, setMovieDetails] = useState({})
     const [cast, setCast] = useState([])
     const [crew, setCrew] = useState([])
     const [genres, setGenres] = useState([])
     const dispatch = useDispatch()
     const { movieError } = useSelector(state => state.error)
+
+
+
     const getDetails = async (id) => {
         setLoading(true)
         try {
@@ -53,7 +57,9 @@ function MoviePage() {
     }, [])
     try {
         return (
-            <>
+            <div style={{
+                background: mode ? 'black' : 'white'
+            }}>
 
                 {
                     loading ?
@@ -75,7 +81,7 @@ function MoviePage() {
                             }
                         </>
                 }
-            </>
+            </div>
 
         );
     } catch (error) {

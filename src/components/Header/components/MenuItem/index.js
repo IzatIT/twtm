@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function MenuItem({ menuItem }) {
     const { showed } = useSelector(state => state.submenu)
+    const {mode} = useSelector(state => state.mode)
     const dispatch = useDispatch()
 
     const handleClick = () => {
@@ -21,7 +22,9 @@ function MenuItem({ menuItem }) {
                 className='menu_title'>{menuItem.title}</button>
             {
                 showed === menuItem.key ? 
-                <nav className='submenu_item'>
+                <nav className='submenu_item' style={{
+                    background: mode ? 'black' : 'white'
+                }}>
                     {
                         menuItem.submenu.map(submenu => <SubmenuItem submenu={submenu} key={submenu.id} />)
                     }

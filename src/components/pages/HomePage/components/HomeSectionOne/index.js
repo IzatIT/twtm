@@ -83,7 +83,9 @@ function HomeSectionOne({ section }) {
                                 <h1 className='home_section_title'>
                                     {title}
                                 </h1>
-                                <nav className='home_categories'>
+                                <nav className='home_categories' style={{
+                                    borderColor: mode ? 'aqua' : 'black'
+                                }}>
                                     {
                                         categories.map(category => <Categories section={section} key={category.id} category={category} />)
                                     }

@@ -10,6 +10,7 @@ function MovieBody({ cast, movieDetails, movieId }) {
     const [keywords, setKeywords] = useState([])
     const [socialMedia, setSocialMedia] = useState([])
     const { language } = useSelector(state => state.language)
+    const {mode} = useSelector(state => state.mode)
     const dispatch = useDispatch()
 
     const getKeywords = async () => {
@@ -44,7 +45,9 @@ function MovieBody({ cast, movieDetails, movieId }) {
 
     try {
         return (
-            <section className='movie_body'>
+            <section className='movie_body' style={{
+                color: mode ? 'white' : 'black'
+            }}>
                 <div className='container'>
                     <div className='movie_body'>
                         <div className='movie_body_left'>
@@ -55,7 +58,11 @@ function MovieBody({ cast, movieDetails, movieId }) {
                                 }
                             </div>
                         </div>
-                        <div className='movie_body_right'>
+                        <div className='movie_body_right'
+                        style={{
+                            boxShadow: `-100px 0 50px 10px ${mode ? 'black' : 'white'}`
+                        }}
+                        >
                             <nav className='movie_extarnals'>
                                 <a className='movie_social' target='_blank' href={`https://www.facebook.com/${socialMedia.facebook_id}`}><Facebook /></a>
                                 <a className='movie_social' target='_blank' href={`https://twitter.com/${socialMedia.twitter_id}`}><Twitter /></a>
@@ -64,7 +71,7 @@ function MovieBody({ cast, movieDetails, movieId }) {
                             <div className='movie_extra_info'>
                                 <div className='extra_info_item'>
                                     <h3>{language === 'ru-RU' ? 'Исходное название' : 'Original title'}</h3>
-                                    <p>{movieDetails.original_title}</p>
+                                     <p>{movieDetails.original_title}</p>
                                 </div>
                                 <div className='extra_info_item'>
                                     <h3>{language === 'ru-RU' ? 'Статус' : 'Status'}</h3>
@@ -90,7 +97,13 @@ function MovieBody({ cast, movieDetails, movieId }) {
                             </div>
                             <div className='movie_keywords'>
                                 {
-                                    keywords.map(el => <button key={el.id} className="keyword_btn">{el.name}</button>)
+                                    keywords.map(el => <button
+                                        style={{
+                                            color: mode ? 'white' : 'black',
+                                            background: mode ? 'black' : 'white',
+                                            border: mode ? '1px solid white' : ''
+                                        }}
+                                        key={el.id} className="keyword_btn">{el.name}</button>)
                                 }
                             </div>
                         </div>

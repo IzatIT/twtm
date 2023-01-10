@@ -74,9 +74,7 @@
     color: gray;
     letter-spacing: 1px;
 }
-.submenu_link:hover{
-    color: var(--text-black);
-}
+
 /* ----------------MODE CHANGER AND LANGUAGE CHANGER--------------------------- */
 
 
