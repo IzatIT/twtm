@@ -28,6 +28,7 @@ function SearchResults() {
     const [tvShowsTotal, setTvShowsTotal] = useState(0)
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
+    const { mode } = useSelector(state => state.mode)
     const [selected, setSelected] = useState(0)
     const { searchError } = useSelector(state => state.error)
 
@@ -42,7 +43,6 @@ function SearchResults() {
     }
 
     const searchMovies = async () => {
-        setLoading(true)
         try {
             const api = await axios(`https://api.themoviedb.org/3/search/movie?api_key=${Apikey}&language=${language}&query=${searchValue}&page=${page}&include_adult=true`)
                 .then(({ data }) => {
@@ -56,10 +56,8 @@ function SearchResults() {
         catch (e) {
             dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
-        setLoading(false)
     }
     const searchPeople = async () => {
-        setLoading(true)
         try {
             const api = await axios(`https://api.themoviedb.org/3/search/person?api_key=${Apikey}&language=${language}&query=${searchValue}&page=${page}&include_adult=true`)
                 .then(({ data }) => {
@@ -70,10 +68,8 @@ function SearchResults() {
         catch (e) {
             dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
-        setLoading(false)
     }
     const searchKeywords = async () => {
-        setLoading(true)
         try {
             const api = await axios(`https://api.themoviedb.org/3/search/keyword?api_key=${Apikey}&query=${searchValue}&page=${page}`)
                 .then(({ data }) => {
@@ -84,10 +80,8 @@ function SearchResults() {
         catch (e) {
             dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
-        setLoading(false)
     }
     const searchTvShows = async () => {
-        setLoading(true)
         try {
             const api = await axios(`https://api.themoviedb.org/3/search/tv?api_key=${Apikey}&language=${language}&query=${searchValue}&page=${page}&include_adult=true`)
                 .then(({ data }) => {
@@ -98,18 +92,29 @@ function SearchResults() {
         catch (e) {
             dispatch({ type: ERROR_SEARCH, payload: e.message })
         }
-        setLoading(false)
     }
 
     // 
     useEffect(() => {
+        setLoading(true)
         searchMovies()
         searchPeople()
         searchKeywords()
         searchTvShows()
+        setTimeout(() => setLoading(false), 3000)
     }, [language])
     return (
-        <section id="found_movies">
+        <section id="found_movies"
+            style={{
+                background: mode ? 'black' : 'white',
+                color: mode ? 'white' : 'black',
+                minHeight: loading ? '100vh' : 'auto',
+                minWidth: loading ? '100vw' : 'auto',
+                position: loading ? 'absolute' : 'static',
+                top: '0',
+                left: '0'
+            }}
+        >
             {
                 loading ?
                     <div className='loading_container'>
@@ -127,7 +132,12 @@ function SearchResults() {
                                             // onClick={handleClickNavigate}
                                             className='found_movies_input'
                                             onChange={handleChange}
-                                            type="text" value={inputValue} />
+                                            type="text" value={inputValue}
+                                            style={{
+                                                color: mode ? 'wheat' : 'gray',
+                                                borderBottom: `1px solid ${mode ? 'wheat' : 'black'}`
+                                            
+                                            }}/>
                                     </header>
                                     <div className='found_movies'>
                                         <div className='found_movies_left'>
@@ -142,10 +152,14 @@ function SearchResults() {
                                                         }}
                                                         className='nav_link'>
                                                         <button
+                                                            style={{
+                                                                color: selected === 0 && mode ? 'black' : mode ? "white" : 'white',
+                                                            }}
                                                             onClick={() => handleClick(0)}
                                                         >{language === 'ru-RU' ? 'Фильмы' : 'Movies'}</button>
                                                         <p
                                                             style={{
+                                                                color: mode ? 'black' : 'white',
                                                                 background: selected == 0 ? 'white' : 'rgb(220, 216, 216)'
                                                             }}
                                                             className='found_movies_total'>{movieTotal}</p>
@@ -156,10 +170,14 @@ function SearchResults() {
                                                         }}
                                                         className='nav_link'>
                                                         <button
+                                                            style={{
+                                                                color: selected === 1 && mode ? 'black' : mode ? "white" : 'white',
+                                                            }}
                                                             onClick={() => handleClick(1)}
                                                         >{language === 'ru-RU' ? 'Люди' : 'People'}</button>
                                                         <p
                                                             style={{
+                                                                color: mode ? 'black' : 'white',
                                                                 background: selected == 1 ? 'white' : 'rgb(220, 216, 216)'
                                                             }}
                                                             className='found_movies_total'>{peopleTotal}</p>
@@ -170,10 +188,15 @@ function SearchResults() {
                                                         }}
                                                         className='nav_link'>
                                                         <button
+                                                            style={{
+
+                                                                color: selected === 2 && mode ? 'black' : mode ? "white" : 'white',
+                                                            }}
                                                             onClick={() => handleClick(2)}
                                                         >{language == 'ru-RU' ? 'Ключевые слова' : 'Keywords'}</button>
                                                         <p
                                                             style={{
+                                                                color: mode ? 'black' : 'white',
                                                                 background: selected == 2 ? 'white' : 'rgb(220, 216, 216)'
                                                             }}
                                                             className='found_movies_total'>{keywordsTotal}</p>
@@ -184,10 +207,14 @@ function SearchResults() {
                                                         }}
                                                         className='nav_link'>
                                                         <button
+                                                            style={{
+                                                                color: selected === 3 && mode ? 'black' : mode ? "white" : 'white',
+                                                            }}
                                                             onClick={() => handleClick(3)}
                                                         >{language === 'ru-RU' ? 'ТВ шоу' : 'TV Shows'}</button>
                                                         <p
                                                             style={{
+                                                                color: mode ? 'black' : 'white',
                                                                 background: selected == 3 ? 'white' : 'rgb(220, 216, 216)'
                                                             }}
                                                             className='found_movies_total'>{tvShowsTotal}</p>

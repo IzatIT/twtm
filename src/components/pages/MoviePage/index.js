@@ -19,11 +19,10 @@ function MoviePage() {
 
 
     const getDetails = async (id) => {
-        setLoading(true)
         try {
             await getMovies('movie', id, language)
                 .then(data => {
-                    dispatch({type: ADD_MOVIE_DETAILS, payload: data})
+                    dispatch({ type: ADD_MOVIE_DETAILS, payload: data })
                 })
             dispatch({ type: ERROR_GEN, payload: '' })
             dispatch({ type: ERROR_MOVIE, payload: '' })
@@ -31,31 +30,34 @@ function MoviePage() {
         } catch (e) {
             dispatch({ type: ERROR_MOVIE, payload: e.message })
         }
-
-        setLoading(false)
     }
     const getCredits = async (id) => {
-        setLoading(true)
         try {
             await getMovies('movie', id + '/credits', language)
                 .then(data => {
-                    dispatch({type: ADD_MOVIE_CREDITS, payload: data})
+                    dispatch({ type: ADD_MOVIE_CREDITS, payload: data })
                 })
         } catch (e) {
             dispatch({ type: ERROR_MOVIE, payload: e.message })
         }
-        setLoading(false)
     }
 
 
     useEffect(() => {
+        setLoading(true)
         getDetails(movieId)
         getCredits(movieId)
+        setTimeout(() => setLoading(false), 3000)
     }, [language])
     try {
         return (
             <div style={{
-                background: mode ? 'black' : 'white'
+                background: mode ? 'black' : 'white',
+                minHeight: loading ? '100vh' : 'auto',
+                minWidth: loading ? '100vw' : 'auto',
+                position: loading ?  'absolute' : 'static',
+                top: '0',
+                left: '0'
             }}>
 
                 {
@@ -69,7 +71,7 @@ function MoviePage() {
                                 movieError === '' ?
                                     <>
                                         <MovieHeader />
-                                        <MovieBody/>
+                                        <MovieBody />
                                     </>
                                     :
                                     <div className='error_container'>

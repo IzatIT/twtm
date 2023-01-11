@@ -42,6 +42,9 @@ export const ADD_PERSON_CREDITS = 'ADD_PERSON_CREDITS'
 export const ADD_PERSON_TV_CREDITS = 'ADD_PERSON_TV_CREDITS'
 
 
+//Search result data
+
+
 
 
 

@@ -14,10 +14,10 @@
     outline: none;
     max-width: 96.2%;
     font-size:20px;
-    color: gray;
+
     padding: 10px 20px;
     border: none;
-    border-bottom: 1px solid black;
+    background: transparent;
 }
 
 .found_movies{

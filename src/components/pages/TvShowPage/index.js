@@ -7,6 +7,7 @@ import TvHeader from './components/Header';
 import TvBody from './components/MovieBody';
 import Loading from '../../../assets/Loading';
 import { ERROR_GEN } from '../../../redux/store/actions';
+
 function TvShowPage() {
     const [loading, setLoading] = useState(false)
     const { showId } = useParams()
@@ -19,7 +20,6 @@ function TvShowPage() {
     const dispatch = useDispatch()
 
     const getDetails = async (id) => {
-        setLoading(true)
         try {
             await getMovies('tv', id, language)
                 .then(data => {
@@ -31,10 +31,8 @@ function TvShowPage() {
         catch (e) {
             dispatch({ type: ERROR_GEN, payload: e.message })
         }
-        setLoading(false)
     }
     const getCredits = async (id) => {
-        setLoading(true)
         try {
             await getMovies('tv', id + '/credits', language)
                 .then(data => {
@@ -46,19 +44,25 @@ function TvShowPage() {
         catch (e) {
             dispatch({ type: ERROR_GEN, payload: e.message })
         }
-        setLoading(false)
     }
 
 
     useEffect(() => {
+        setLoading(true)
         getDetails(showId)
         getCredits(showId)
+        setTimeout(() => setLoading(false), 4000)
     }, [language])
     return (
         <div
             style={{
                 background: mode ? 'black' : 'white',
-                color: mode ? 'white' : 'black'
+                color: mode ? 'white' : 'black',
+                minHeight: loading ? '100vh' : 'auto',
+                minWidth: loading ? '100vw' : 'auto',
+                position: loading ? 'absolute' : 'static',
+                top: '0',
+                left: '0'
             }}
         >
             {

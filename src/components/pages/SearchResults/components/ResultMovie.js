@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 function ResultMovie({ movie }) {
+    const {mode} = useSelector(state => state.mode)
     const screen = window.innerWidth
     return (
         <div className='found_movie_item'>
             <Link className='found_movie_img' to={`/movie/${movie.id}`}>
+           
                 <img className='found_movie_img' src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`} alt="" />
             </Link>
             <div className='found_movie_text'>

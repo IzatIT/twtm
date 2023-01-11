@@ -45,25 +45,24 @@ function HomeSectionOne({ section }) {
         }
     }
 
-    const getDatas = () => {
-        setLoading(true)
+    const getDatas = async () => {
         try {
-            getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=3')
+            await getMovies(activeCategory[0].category, activeCategory[0].subcategory, language, section === 'one' ? '&page=1' : '&page=3')
                 .then(data => {
-                    dispatch({ type: section === 'one' ? ADD_HOME_DATA_ONE : section === 'two' ? ADD_HOME_DATA_TWO :section === 'three' ? ADD_HOME_DATA_THREE : '', payload: data })
+                    dispatch({ type: section === 'one' ? ADD_HOME_DATA_ONE : section === 'two' ? ADD_HOME_DATA_TWO : section === 'three' ? ADD_HOME_DATA_THREE : '', payload: data })
                 })
             dispatch({ type: ERROR_GEN, payload: '' })
         }
         catch (e) {
             dispatch({ type: ERROR_GEN, payload: e.message })
         }
-
-        setLoading(false)
     }
     const title = setTitle()
 
     useEffect(() => {
+        setLoading(true)
         getDatas()
+        setTimeout(() => setLoading(false), 3000)
     }, [active, language])
 
     try {
@@ -95,15 +94,15 @@ function HomeSectionOne({ section }) {
                                 <div className='categories_movies'>
                                     {
                                         section === 'one' ?
-                                        homeDataOne.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
-                                        :
-                                        section === 'two' ?
-                                        homeDataTwo.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
-                                        :
-                                        section === 'three' ?
-                                        homeDataThree.map(movie => <MovieShow section={section} activeCategory={activeCategory} key={movie.id} movie={movie} />)
-                                        :
-                                        ''
+                                            homeDataOne.map(movie => <MovieShow activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                            :
+                                            section === 'two' ?
+                                                homeDataTwo.map(movie => <MovieShow activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                                :
+                                                section === 'three' ?
+                                                    homeDataThree.map(movie => <MovieShow activeCategory={activeCategory} key={movie.id} movie={movie} />)
+                                                    :
+                                                    ''
                                     }
                                 </div>
                             }

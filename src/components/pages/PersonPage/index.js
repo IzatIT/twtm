@@ -18,7 +18,6 @@ function PersonPage() {
     const dispatch = useDispatch()
 
     const getCreditInfo = async () => {
-        setLoading(true)
         try {
             await getMovies('person', actorId, language)
                 .then(data => dispatch({ type: ADD_PERSON_DETAILS, payload: data }))
@@ -28,12 +27,13 @@ function PersonPage() {
         } catch (e) {
             dispatch({ type: ERROR_PERSON, payload: e.message })
         }
-        setLoading(false)
     }
 
 
     useEffect(() => {
+        setLoading(true)
         getCreditInfo()
+        setTimeout(() => setLoading(false), 3000)
     }, [language])
     try {
         return (
@@ -41,7 +41,12 @@ function PersonPage() {
             <div id="personPage"
                 style={{
                     background: mode ? 'black' : 'white',
-                    color: mode ? 'white' : 'black'
+                    color: mode ? 'white' : 'black',
+                    minHeight: loading ? '100vh' : 'auto',
+                    minWidth: loading ? '100vw' : 'auto',
+                    position: loading ? 'absolute' : 'static',
+                    top: '0',
+                    left: '0'
                 }}
             >
                 {

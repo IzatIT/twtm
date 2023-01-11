@@ -7,7 +7,6 @@ import placeholderImage from '../../../../../../../assets/images/placeholderMovi
 
 function MovieShow({ movie, activeCategory }) {
   const category = activeCategory === false ? 'movie' : activeCategory[0].category
-  
   const rating = Math.floor(Math.round(movie.popularity) / 10)
 
   const handleClickScroll = () => {
