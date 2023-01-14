@@ -1,7 +1,7 @@
 1> Welcome
-Millions of movies, TV shows and people to discover. Explore now.
+#Millions of movies, TV shows and people to discover. Explore now.
 
-2> To open the page use GitHub page link: thetilekovich.github.io/twtm
+2> To open the page use [GitHub page link](https://thetilekovich.github.io/twtm)
 
 3> WARNING! The site is made through the free api themoviedb.com, 
   so if you are in Russia you will need to enable VPN to get a list
