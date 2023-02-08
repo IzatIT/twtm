@@ -1,7 +1,7 @@
 # Millions of movies, TV shows and people to discover. Explore now.
 
 To open the page use [GitHub page link](https://thetilekovich.github.io/twtm) <br/>
-> **Warning** The site is made through the free api themoviedb.com,  so if you are in Russia you will need to enable VPN to get a list of movies and tv shows as well as all other data of cinema industry
+> **Warning** The site is made through the free api themoviedb.com,  so if you are in Russia you will need to enable VPN to get a list of movies and tv shows as well as all other data of cinema industry, else you will see 404 error page
  
 If you have some problem or suggestions, please write me on 
    email: tilekuuluizat@gmail.com
