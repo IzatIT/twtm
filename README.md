@@ -5,7 +5,6 @@ To open the page use [GitHub page link](https://thetilekovich.github.io/twtm) <b
  
 If you have some problem or suggestions, please write me on 
    email: tilekuuluizat@gmail.com
-          tilekovizat@gmail.com
 
   
 # Getting Started with Create React App
